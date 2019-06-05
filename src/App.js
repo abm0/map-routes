@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Grid from '@material-ui/core/Grid';
+import PointsList from 'components/PointsList';
+
+import styled from 'styled-components';
+import 'styles/general.css';
+
+const Wrapper = styled.div`
+  height: 100%;
+`
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Wrapper>
+        <Grid container spacing={24}>
+          <Grid item xs={6}>
+            <PointsList />
+          </Grid>
+          <Grid item xs={6}>
+
+          </Grid>
+        </Grid>
+      </Wrapper>
     );
   }
 }
