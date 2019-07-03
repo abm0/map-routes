@@ -16,16 +16,20 @@ const getLatLng = (position) => {
 }
 
 const getAddressData = (responseObj) => {
-  // TODO: handle error
-  
-  const geoObject = responseObj.GeoObjectCollection.featureMember[0].GeoObject;
+  const { featureMember } = responseObj.GeoObjectCollection;
 
-  const { Point } = geoObject;
+  if (typeof featureMember === 'undefined' || !featureMember.length) {
+    return {
+      error: 'Empty geocoder response.',
+    };
+  }
+
+  const { geoObject } = featureMember[0];
 
   const {
     lat,
     lng,
-  } = getLatLng(Point.pos);
+  } = getLatLng(geoObject.Point.pos);
 
   return {
     description: geoObject.description,
