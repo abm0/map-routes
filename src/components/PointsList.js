@@ -6,23 +6,27 @@ class PointsList extends Component {
     points: [
       {
         name: 'point 1',
+        id: 1,
       },
       {
         name: 'point 2',
+        id: 2,
       },
       {
         name: 'point 3',
+        id: 3,
       },
     ]
   }
   
   render() { 
     return (
-      <Fragment>
-        {this.state.points.map((point, index) => (
-          <Point key={`point-${index}`} data={point} />
+      <div className="points-list">
+        {this.state.points.map((point) => (
+          <Point key={point.id} data={point} />
         ))}
-      </Fragment>
+        <button className="points-list__hide-button"></button>
+      </div>
     );
   }
 }
