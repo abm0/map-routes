@@ -15,7 +15,7 @@ const getLatLng = (position) => {
   };
 }
 
-const getAddressData = (responseObj) => {
+const getAddressesArr = (responseObj) => {
   const { featureMember } = responseObj.GeoObjectCollection;
 
   if (typeof featureMember === 'undefined' || !featureMember.length) {
@@ -24,16 +24,20 @@ const getAddressData = (responseObj) => {
     };
   }
 
-  const { geoObject } = featureMember[0];
+  return featureMember.map(address => getAddressData(address));
+};
+
+const getAddressData = (address) => {
+  const { GeoObject } = address;
 
   const {
     lat,
     lng,
-  } = getLatLng(geoObject.Point.pos);
+  } = getLatLng(GeoObject.Point.pos);
 
   return {
-    description: geoObject.description,
-    name: geoObject.name,
+    description: GeoObject.description,
+    name: GeoObject.name,
     lat,
     lng,
   };
@@ -54,9 +58,15 @@ app.post('/addresses', (req, _res) => {
     })
     .accept('json')
     .end((err, res) => {
-      const addressData = getAddressData(res.body.response);
+      try {
+        const addressData = getAddressesArr(res.body.response);
 
-      _res.send(addressData);
+        _res.send(addressData);
+      } catch(e) {
+        _res
+          .status(403)
+          .send('Something went wrong.');
+      }
     });
 });
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 
 import { requestAddressList } from 'api/maps';
@@ -6,24 +7,33 @@ import { requestAddressList } from 'api/maps';
 class AddressInput extends Component {  
   state = {  }
 
+  static propTypes = {
+    updateAddressList: PropTypes.func,
+  }
+  
   constructor(props) {
     super(props);
     this.delayedAddressRequest = debounce(this.fetchAddress, 1000);
   }
 
   fetchAddress = async (value) => {
-    const res = await requestAddressList(value);
-    console.log('res:', res);
-  } 
+    try {
+      const res = await requestAddressList(value);
+      this.props.updateAddressList(res.data);
+    } catch(e) {
+      console.log(e);
+      this.props.updateAddressList([]);
+    }
+  }
   
   handleInputChange = (e) => {
     this.delayedAddressRequest(e.target.value);
   }
 
-  render() { 
+  render() {
     return (
       <div className="address-input-block">
-        <input 
+        <input
           type="text"
           placeholder="Search..."
           className="address-input-block__input"

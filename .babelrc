@@ -6,5 +6,8 @@
         "root": ["./src"]
       }
     ]
+  ],
+  "presets": [
+    ["react-app", { "absoluteRuntime": false }],
   ]
 }
