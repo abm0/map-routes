@@ -6,9 +6,10 @@
     "axios": "^0.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
+    "react-beautiful-dnd": "^11.0.5",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.1",
     "react-scripts": "2.1.8",
@@ -16,6 +17,8 @@
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.0.5",
+    "shortid": "^2.2.14",
     "superagent": "^5.1.0"
   },
   "scripts": {
@@ -37,6 +40,7 @@
     "@babel/runtime": "^7.5.5",
     "@material-ui/core": "^3.9.3",
     "babel-plugin-module-resolver": "^3.2.0",
+    "react-outside-click-handler": "^1.2.4",
     "redux-logger": "^3.0.6",
     "styled-components": "^4.3.2"
   }
