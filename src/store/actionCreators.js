@@ -10,8 +10,9 @@ export const addPoint = (address) => ({
   address,
 });
 
-export const removePoint = () => ({
+export const removePoint = (id) => ({
   type: actionTypes.POINT_REMOVE,
+  id,
 });
 
 export const movePoint = (dropData) => ({

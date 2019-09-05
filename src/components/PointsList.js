@@ -2,46 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-// import sortBy from 'lodash/sortBy';
 
 import Point from 'components/Point';
 
 import { removePoint, movePoint } from 'store/actionCreators';
-
-// export const points = [
-//   {
-//     id: 1,
-//     name: 'Point 1',
-//     description: 'point',
-//     lat: 'point',
-//     lng: 'point',
-//     order: 0,
-//   },
-//   {
-//     id: 2,
-//     name: 'Point 2',
-//     description: 'point',
-//     lat: 'point',
-//     lng: 'point',
-//     order: 1,
-//   },
-//   {
-//     id: 3,
-//     name: 'Point 3',
-//     description: 'point',
-//     lat: 'point',
-//     lng: 'point',
-//     order: 2,
-//   },
-//   {
-//     id: 4,
-//     name: 'Point 4',
-//     description: 'point',
-//     lat: 'point',
-//     lng: 'point',
-//     order: 3,
-//   },
-// ];
 
 class PointsList extends Component {
   static propTypes = {
@@ -50,17 +14,7 @@ class PointsList extends Component {
     removePoint: PropTypes.func.isRequired,
     movePoint: PropTypes.func.isRequired,
   }
-  
-  // TODO: implement proper shouldComponentUpdate condition
-
-  // shouldComponentUpdate(nextProps) {
-  //   if (this.props.points.length === nextProps.points.length) {
-  //     return false;
-  //   }
-
-  //   return true;
-  // }
-  
+    
   onDragEnd = (result) => {
     if (result.reason !== "DROP") return;
 
@@ -78,7 +32,6 @@ class PointsList extends Component {
       pointsById,
       ids,
       removePoint,
-      movePoint,
     } = this.props;
 
     if (!ids.length) {
@@ -111,7 +64,6 @@ class PointsList extends Component {
                       <Point
                         point={pointsById[id]}
                         onPointRemove={removePoint}
-                        onPointMove={movePoint}
                       />
                     </div>
                   )}

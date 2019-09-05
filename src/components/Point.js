@@ -12,7 +12,7 @@ const Point = ({ point, onPointRemove }) => {
       </span>
       <button 
         className="point-item__remove-button"
-        onClick={onPointRemove}
+        onClick={() => onPointRemove(point.id)}
       >
         <i className="icofont-bin"></i>
       </button>

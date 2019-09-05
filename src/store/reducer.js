@@ -53,16 +53,18 @@ const pointsReducer = handleActions({
   },
   
   [actionTypes.POINT_REMOVE]: (state, action) => {
-    const { byId, ids } = { ...state };
+    const { byId, ids } = state;
     const { id } = action;
 
     ids.splice(ids.indexOf(id), 1);
     delete byId[id];
-    
+
     return {
       ...state,
-      byId,
-      ids,
+      byId: {
+        ...byId
+      },
+      ids: [...ids],
     };
   },
   
