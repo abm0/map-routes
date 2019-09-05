@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+import OutsideClickHandler from 'react-outside-click-handler';
 
-import { requestAddressList } from 'api/maps';
-
-class AddressInput extends Component {  
+class AddressInput extends Component {
   state = {  }
 
   static propTypes = {
@@ -13,17 +12,7 @@ class AddressInput extends Component {
   
   constructor(props) {
     super(props);
-    this.delayedAddressRequest = debounce(this.fetchAddress, 1000);
-  }
-
-  fetchAddress = async (value) => {
-    try {
-      const res = await requestAddressList(value);
-      this.props.updateAddressList(res.data);
-    } catch(e) {
-      console.log(e);
-      this.props.updateAddressList([]);
-    }
+    this.delayedAddressRequest = debounce(this.props.fetchAddressList, 1000);
   }
   
   handleInputChange = (e) => {
@@ -31,14 +20,20 @@ class AddressInput extends Component {
   }
 
   render() {
+    const { onClickOutside } = this.props;
+
     return (
       <div className="address-input-block">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="address-input-block__input"
-          onChange={this.handleInputChange}
-        />
+        <OutsideClickHandler
+          onOutsideClick={onClickOutside}
+        >
+          <input
+            type="text"
+            placeholder="Search..."
+            className="address-input-block__input"
+            onChange={this.handleInputChange}
+          />
+        </OutsideClickHandler>
         <button className="address-input-block__list-toggle-button">
           <i className="icofont-rounded-down"></i>
         </button>

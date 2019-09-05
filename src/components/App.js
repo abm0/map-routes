@@ -1,35 +1,26 @@
-import React, { Component } from 'react';
-import createStore from 'store';
+import React from 'react';
+import store from 'store';
 import { Provider } from 'react-redux';
-import { YMaps, Map } from 'react-yandex-maps';
+import { YMaps } from 'react-yandex-maps';
 
+import MapInterface from './MapInterface';
 import Address from './Address';
 import PointsList from './PointsList';
 
-const store = createStore();
-
-class App extends Component {
-  handleYMapsLoad(map) {
-    
-  }
-  
-  render() { 
-    return (
-      <Provider store={store}>
-        <YMaps>
-          <div className="wrapper">
-            <Map 
-              className="map"
-              defaultState={{ center: [55.75, 37.57], zoom: 9 }} 
-              onLoad={this.handleYMapsLoad}
-            />
-            <Address />
+const App = () => {
+  return (
+    <Provider store={store}>
+      <YMaps>
+        <div className="wrapper">
+          <MapInterface />
+          <Address />
+          <div className="points-list__wrapper">
             <PointsList />
           </div>
-        </YMaps>
-      </Provider>
-    );
-  }
-}
- 
+        </div>
+      </YMaps>
+    </Provider>
+  );
+};
+
 export default App;
