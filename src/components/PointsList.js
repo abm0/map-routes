@@ -59,11 +59,11 @@ class PointsList extends Component {
                     <div 
                       ref={provided.innerRef} 
                       {...provided.draggableProps}
-                      {...provided.dragHandleProps}
                     >
                       <Point
                         point={pointsById[id]}
                         onPointRemove={removePoint}
+                        provided={provided}
                       />
                     </div>
                   )}

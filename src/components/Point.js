@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Point = ({ point, onPointRemove }) => {
+const Point = ({ point, onPointRemove, provided }) => {
   return (
     <div className="point-item">
-      <div className="point-item__drag-handle">
+      <div
+        className="point-item__drag-handle"
+        {...provided.dragHandleProps}
+      >
         <i className="icofont-navigation-menu"></i>
       </div>
       <span className="point-item__name">
@@ -29,6 +32,7 @@ Point.propTypes = {
     lng: PropTypes.string.isRequired,
   }),
   onPointRemove: PropTypes.func.isRequired,
+  provided: PropTypes.object.isRequired,
 };
  
 export default Point;
