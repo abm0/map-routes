@@ -15,7 +15,13 @@ export const removePoint = (id) => ({
   id,
 });
 
-export const movePoint = (dropData) => ({
-  type: actionTypes.POINT_MOVE,
+export const changePointOrder = (dropData) => ({
+  type: actionTypes.POINT_ORDER_CHANGE,
   ...dropData,
+});
+
+export const updatePointPosition = (coordinates, id) => ({
+  type: actionTypes.POINT_POSITION_CHANGE,
+  coordinates,
+  id,
 });

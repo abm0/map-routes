@@ -5,20 +5,20 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Point from 'components/Point';
 
-import { removePoint, movePoint } from 'store/actionCreators';
+import { removePoint, changePointOrder } from 'store/actionCreators';
 
 class PointsList extends Component {
   static propTypes = {
     pointsById: PropTypes.object.isRequired,
     ids: PropTypes.array.isRequired,
     removePoint: PropTypes.func.isRequired,
-    movePoint: PropTypes.func.isRequired,
+    changePointOrder: PropTypes.func.isRequired,
   }
     
   onDragEnd = (result) => {
     if (result.reason !== "DROP") return;
 
-    this.props.movePoint({
+    this.props.changePointOrder({
       oldIndex: result.source.index,
       newIndex: result.destination.index,
       addressId: result.draggableId,
@@ -44,7 +44,7 @@ class PointsList extends Component {
       >
         <Droppable droppableId={'points-droppable'}>
           {provided => (
-            <div 
+            <div
               className="points-list"
               ref={provided.innerRef}
               {...provided.droppableProps}
@@ -86,7 +86,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionCreators = {
   removePoint,
-  movePoint,
+  changePointOrder,
 };
  
 export default connect(mapStateToProps, mapActionCreators)(PointsList);

@@ -2,6 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { updatePointPosition } from 'store/actionCreators';
+
 class Map extends Component {
   static propTypes = {
     pointsById: PropTypes.object.isRequired,
@@ -14,13 +16,13 @@ class Map extends Component {
     controls: [],
   }
 
-  createElement() {
+  createMapElement() {
     this.mapEl = document.createElement('div');
     this.mapEl.id = 'map';
     document.querySelector('#root .wrapper').appendChild(this.mapEl);
   }
 
-  removeElement() {
+  removeMapElement() {
     document.body.removeChild(this.mapEl);
   }
 
@@ -32,18 +34,45 @@ class Map extends Component {
     });
   }
 
-  createGeoObject(point) {
+  createGeoObject(point, index) {
     const { ymaps } = window;
     
     const coordinates = [
       parseFloat(point.lng),
       parseFloat(point.lat),
     ];
+
+    const placemark = new ymaps.GeoObject({
+      geometry: {
+        type: "Point",
+        coordinates,
+      },
+
+      properties: {
+        iconContent: index + 1,
+        hintContent: point.name,
+        balloonContentHeader: point.name,
+        balloonContentBody: point.description,
+      }
+    }, {
+      preset: 'twirl#redDotIcon',
+      draggable: true,
+      hintHideTimeout: 0,
+    });
+
+    placemark.events.add('dragend', this.onDragEnd.bind(this, point.id));
     
     return {
-      placemark: new ymaps.Placemark(coordinates),
+      placemark,
       coordinates,
     };
+  }
+
+  onDragEnd = (id, e) => {
+    const { updatePointPosition } = this.props;
+    const coordinates = e.originalEvent.target.geometry._coordinates;
+
+    updatePointPosition(coordinates, id);
   }
   
   addGeoObjects(geoobjects) {
@@ -59,20 +88,24 @@ class Map extends Component {
     const coordinates = geoobjects.map(geoobject => geoobject.coordinates);
     const route = new ymaps.multiRouter.MultiRoute({
       referencePoints: coordinates,
+      params: {
+        results: 1,
+      }
     }, {
       boundsAutoApply: true,
+      wayPointVisible: false,
     });
 
     this.map.geoObjects.add(route);
   }
   
   componentDidMount() {
-    this.createElement();
+    this.createMapElement();
     this.initMap();
   }
 
   componentWillUnmount() {
-    this.removeElement();
+    this.removeMapElement();
   }
   
   componentWillReceiveProps(nextProps) {
@@ -83,8 +116,8 @@ class Map extends Component {
       orderedPoints.push(pointsById[id]);
     });
 
-    const geoobjects = orderedPoints.map(point => (
-      this.createGeoObject(point)
+    const geoobjects = orderedPoints.map((point, index) => (
+      this.createGeoObject(point, index)
     ));
 
     this.map.geoObjects.removeAll();
@@ -100,4 +133,8 @@ const mapStateToProps = (state) => ({
   ids: state.points.ids,
 });
 
-export default connect(mapStateToProps, null)(Map);
+const mapActionCreators = {
+  updatePointPosition,
+};
+
+export default connect(mapStateToProps, mapActionCreators)(Map);

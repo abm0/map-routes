@@ -68,7 +68,7 @@ const pointsReducer = handleActions({
     };
   },
   
-  [actionTypes.POINT_MOVE]: (state, action) => {
+  [actionTypes.POINT_ORDER_CHANGE]: (state, action) => {
     const {
       oldIndex,
       newIndex,
@@ -82,6 +82,25 @@ const pointsReducer = handleActions({
       ...state,
       ids: reorderedIds,
     };
+  },
+
+  [actionTypes.POINT_POSITION_CHANGE]: (state, action) => {
+    const {
+      coordinates,
+      id,
+    } = action;
+
+    const { byId } = state;
+
+    byId[id].lng = coordinates[0].toString();
+    byId[id].lat = coordinates[1].toString();
+
+    return {
+      ...state,
+      byId: {
+        ...byId,
+      }
+    }
   },
 }, initialPointsState);
 
