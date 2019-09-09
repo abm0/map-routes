@@ -1,6 +1,6 @@
 ## Startup instruction
 
-In the project directory, you can run:
+To start app, run:
 
 ### `npm install`
 ### `npm start`
