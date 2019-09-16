@@ -1,34 +1,7 @@
 import { handleActions } from 'redux-actions';
-import { combineReducers } from 'redux';
-
-import * as actionTypes from './actionTypes';
-
 import { moveElement } from 'helpers';
 
-
-const initialAddressesState = {
-  list: [],
-  isFetching: false,
-};
-
-const addressesReducer = handleActions({
-  [actionTypes.ADDRESS_LIST_FETCH]: (state, action) => ({
-    ...state,
-    isFetching: true,
-    list: [],
-  }),
-
-  [actionTypes.ADDRESS_LIST_FETCH_SUCCESS]: (state, action) => ({
-    ...state,
-    list: [...action.addressList],
-    isFetchin: false,
-  }),
-
-  [actionTypes.ADDRESS_LIST_FETCH_FAIL]: (state, action) => ({
-    ...state,
-    isFetching: false,
-  }),
-}, initialAddressesState);
+import * as actionTypes from '../actionTypes';
 
 const initialPointsState = {
   byId: {},
@@ -114,9 +87,4 @@ const pointsReducer = handleActions({
   },
 }, initialPointsState);
 
-const rootReducer = combineReducers({
-  addresses: addressesReducer,
-  points: pointsReducer,
-});
-
-export default rootReducer;
+export default pointsReducer;

@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga'
 
 // import loggerMiddleware from 'redux-logger';
-import reducer from './reducer';
+import reducers from './reducers';
 import sagas from './sagas';
 
 export const sagaMiddleware = createSagaMiddleware();
@@ -11,7 +11,7 @@ export const sagaMiddleware = createSagaMiddleware();
 const composeEnchancers = composeWithDevTools({});
 
 const store = createStore(
-  reducer, 
+  reducers, 
   // initialState, 
   composeEnchancers(applyMiddleware(
     // loggerMiddleware,
