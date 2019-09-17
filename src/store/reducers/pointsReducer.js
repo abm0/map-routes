@@ -11,7 +11,8 @@ const initialPointsState = {
 const pointsReducer = handleActions({
   [actionTypes.POINT_ADD]: (state, action) => {
     const { byId } = state;
-    const newId = new Date().getUTCMilliseconds();
+    // const newId = new Date().getUTCMilliseconds();
+    const newId = action.id;
 
     const presentPoint = Object.values(byId).filter(point => 
       point.lat === action.address.lat &&

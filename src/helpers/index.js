@@ -12,3 +12,6 @@ export const moveElement = (arr, oldIndex, newIndex) => {
 
   return [...leftArr, ...element, ...rightArr];
 }
+
+export const generateAddressId = () =>
+  new Date().getUTCMilliseconds()

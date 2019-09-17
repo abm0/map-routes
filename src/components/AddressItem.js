@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { generateAddressId } from 'helpers';
+
 const AddressItem = ({ address, handleAddClick }) => {
   return (
     <li className="address-item">
@@ -9,7 +11,7 @@ const AddressItem = ({ address, handleAddClick }) => {
       </span>
       <button
         className="address-item__add-button"
-        onClick={() => handleAddClick(address)}
+        onClick={() => handleAddClick(address, generateAddressId())}
       >
         <i className="icofont-plus"></i>
       </button>

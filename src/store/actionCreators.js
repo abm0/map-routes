@@ -5,9 +5,10 @@ export const fetchAddressList = (addressValue) => ({
   addressValue,
 });
 
-export const addPoint = (address) => ({
+export const addPoint = (address, id) => ({
   type: actionTypes.POINT_ADD,
   address,
+  id,
 });
 
 export const removePoint = (id) => ({
