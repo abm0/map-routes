@@ -3,6 +3,8 @@ import { moveElement } from 'helpers';
 
 import * as actionTypes from '../actionTypes';
 
+import cloneDeep from 'lodash/cloneDeep';
+
 const initialPointsState = {
   byId: {},
   ids: [],
@@ -10,8 +12,8 @@ const initialPointsState = {
 
 const pointsReducer = handleActions({
   [actionTypes.POINT_ADD]: (state, action) => {
-    const { byId } = state;
-    // const newId = new Date().getUTCMilliseconds();
+    const newState = cloneDeep(state);
+    const { byId } = newState;
     const newId = action.id;
 
     const presentPoint = Object.values(byId).filter(point => 
@@ -20,31 +22,32 @@ const pointsReducer = handleActions({
     );
 
     if (presentPoint.length) {
-      return { ...state };
+      return { ...newState };
     }
     
     return {
-      ...state,
+      ...newState,
       byId: {
-        ...state.byId,
+        ...newState.byId,
         [newId]: { 
           ...action.address,
           id: newId,
         },
       },
-      ids: [...state.ids, newId],
+      ids: [...newState.ids, newId],
     };
   },
   
   [actionTypes.POINT_REMOVE]: (state, action) => {
-    const { byId, ids } = state;
+    const newState = cloneDeep(state);
+    const { byId, ids } = newState;
     const { id } = action;
 
     ids.splice(ids.indexOf(id), 1);
     delete byId[id];
 
     return {
-      ...state,
+      ...newState,
       byId: {
         ...byId
       },
@@ -53,34 +56,38 @@ const pointsReducer = handleActions({
   },
   
   [actionTypes.POINT_ORDER_CHANGE]: (state, action) => {
+    const newState = cloneDeep(state);
+    
     const {
       oldIndex,
       newIndex,
     } = action;
 
-    const { ids } = { ...state };
+    const { ids } = newState;
 
     const reorderedIds = moveElement(ids, oldIndex, newIndex)
 
     return {
-      ...state,
+      ...newState,
       ids: reorderedIds,
     };
   },
 
   [actionTypes.POINT_POSITION_CHANGE]: (state, action) => {
+    const newState = cloneDeep(state);
+    
     const {
       coordinates,
       id,
     } = action;
-
-    const { byId } = state;
+    
+    const { byId } = newState;
 
     byId[id].lng = coordinates[0].toString();
     byId[id].lat = coordinates[1].toString();
 
     return {
-      ...state,
+      ...newState,
       byId: {
         ...byId,
       }
