@@ -4,12 +4,6 @@ import debounce from 'lodash/debounce';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 class AddressInput extends Component {
-  state = {  }
-
-  static propTypes = {
-    updateAddressList: PropTypes.func,
-  }
-  
   constructor(props) {
     super(props);
     this.delayedAddressRequest = debounce(this.props.fetchAddressList, 1000);
