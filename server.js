@@ -1,7 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const sa = require('superagent');
+const bodyParser = require('body-parser');
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 const YMAPS_API_KEY = '7547cd62-6ddd-4fe8-bbef-55ea5c7e70bf';
 const YANDEX_API_URL = 'https://geocode-maps.yandex.ru/1.x/';
@@ -53,7 +59,7 @@ app.post('/addresses', (req, _res) => {
   sa.get(YANDEX_API_URL)
     .query({
       apikey: YMAPS_API_KEY,
-      geocode: req.query.geocode,
+      geocode: req.body.geocode,
       format: 'json',
     })
     .accept('json')
