@@ -1,5 +1,5 @@
-import * as actionTypes from './actionTypes';
-import * as actionCreators from './actionCreators';
+import * as actionTypes from '../actionTypes';
+import * as actionCreators from '../actionCreators';
 
 describe('action creators', () => {
   it('should return proper ADDRESS_LIST_FETCH action', () => {

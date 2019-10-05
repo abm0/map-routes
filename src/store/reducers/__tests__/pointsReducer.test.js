@@ -1,5 +1,5 @@
-import pointsReducer, { initialPointsState } from './pointsReducer';
-import * as actionCreators from '../actionCreators';
+import pointsReducer, { initialPointsState } from '../pointsReducer';
+import * as actionCreators from '../../actionCreators';
 
 describe('points reducer', () => {
   const reducerWithInitialState = (action) => pointsReducer(initialPointsState, action);

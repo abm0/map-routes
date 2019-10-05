@@ -21,7 +21,7 @@ const AddressItem = ({ address, handleAddClick }) => {
 
 AddressItem.propTypes = {
   address: PropTypes.shape({
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
     lat: PropTypes.string.isRequired,
     lng: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

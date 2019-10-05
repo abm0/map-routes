@@ -1,6 +1,6 @@
-import addressesReducer, { initialAddressesState } from './addressesReducer';
-import * as actionCreators from '../actionCreators';
-import * as actionTypes from '../actionTypes';
+import addressesReducer, { initialAddressesState } from '../addressesReducer';
+import * as actionCreators from '../../actionCreators';
+import * as actionTypes from '../../actionTypes';
 
 describe('addresses reducer', () => {
   const reducerWithInitialState = (action) => addressesReducer(initialAddressesState, action);

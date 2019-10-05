@@ -5,6 +5,15 @@ export const fetchAddressList = (addressValue) => ({
   addressValue,
 });
 
+export const fetchAddressListSuccess = (data) => ({
+  type: actionTypes.ADDRESS_LIST_FETCH_SUCCESS, 
+  addressList: data,
+});
+
+export const fetchAddressListFail = () => ({
+  type: actionTypes.ADDRESS_LIST_FETCH_FAIL,
+});
+
 export const addPoint = (address, id) => ({
   type: actionTypes.POINT_ADD,
   address,

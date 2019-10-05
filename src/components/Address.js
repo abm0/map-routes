@@ -7,7 +7,7 @@ import AddressList from './AddressList';
 
 import { fetchAddressList, addPoint } from 'store/actionCreators';
 
-class Address extends Component {
+export class Address extends Component {
 
   state = {
     isAddressListVisible: false,

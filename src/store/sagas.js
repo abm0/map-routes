@@ -1,17 +1,21 @@
 import { fetchAddressList } from 'api/geocoder';
 import { put, takeLatest, all } from 'redux-saga/effects';
 import * as actionTypes from './actionTypes';
+import {
+  fetchAddressListSuccess, 
+  fetchAddressListFail,
+} from './actionCreators';
 
-function* fetchAddressListSaga(action) {
+export function* fetchAddressListSaga(action) {
   try {
     const { data } = yield fetchAddressList(action.addressValue);
-    yield put({ type: actionTypes.ADDRESS_LIST_FETCH_SUCCESS, addressList: data });
+    yield put(fetchAddressListSuccess(data));
   } catch(e) {
-    yield put({ type: actionTypes.ADDRESS_LIST_FETCH_FAIL });
+    yield put(fetchAddressListFail());
   }
 }
 
-function* actionWatcher() {
+export function* actionWatcher() {
     yield takeLatest(actionTypes.ADDRESS_LIST_FETCH, fetchAddressListSaga);
 }
 
