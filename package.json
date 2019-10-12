@@ -4,14 +4,20 @@
   "private": true,
   "dependencies": {
     "@testing-library/react": "^8.0.4",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.11",
+    "@types/react": "^16.9.5",
+    "@types/react-dom": "^16.9.1",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "cypress": "^3.4.1",
+    "enzyme-adapter-react-16": "^1.14.0",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
-    "react": "^16.8.6",
+    "puppeteer": "^1.20.0",
+    "react": "^16.10.2",
     "react-beautiful-dnd": "^11.0.5",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.1",
@@ -22,7 +28,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.0.5",
     "shortid": "^2.2.14",
-    "superagent": "^5.1.0"
+    "superagent": "^5.1.0",
+    "typescript": "^3.6.3"
   },
   "scripts": {
     "start": "react-scripts start",

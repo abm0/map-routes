@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 class AddressInput extends Component {
-  propTypes = {
+  static propTypes = {
     onClickOutside: PropTypes.func.isRequired,
     fetchAddressList: PropTypes.func.isRequired,
   }
