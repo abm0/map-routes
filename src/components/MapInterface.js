@@ -16,6 +16,36 @@ class Map extends Component {
     controls: [],
   }
 
+  componentDidMount() {
+    this.createMapElement();
+    this.initMap();
+  }
+
+  componentWillUnmount() {
+    this.removeMapElement();
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    const { ids, pointsById } = nextProps;
+    const orderedPoints = [];
+    
+    ids.forEach(id => {
+      orderedPoints.push(pointsById[id]);
+    });
+
+    const geoobjects = orderedPoints.map((point, index) => (
+      this.createGeoObject(point, index)
+    ));
+
+    if (this.isAddressAdded(this.props, nextProps)) {
+      this.map.setCenter(this.getLastPointCoordinates(orderedPoints));
+    }
+    
+    this.map.geoObjects.removeAll();
+    this.addGeoObjects(geoobjects);
+    this.addPolyline(geoobjects);
+  }
+
   createMapElement() {
     this.mapEl = document.createElement('div');
     this.mapEl.id = 'map';
@@ -24,6 +54,19 @@ class Map extends Component {
 
   removeMapElement() {
     document.body.removeChild(this.mapEl);
+  }
+
+  isAddressAdded(props, nextProps) {
+    return nextProps.ids.length > props.ids.length;
+  }
+
+  getLastPointCoordinates(orderedPoints) {
+    const lastPoint = orderedPoints[orderedPoints.length - 1];
+
+    return [
+      lastPoint.lng,
+      lastPoint.lat
+    ];
   }
 
   initMap() {
@@ -83,46 +126,13 @@ class Map extends Component {
     });
   }
 
-  addRoute(geoobjects) {
+  addPolyline(geoobjects) {
     const { ymaps } = window;
     const coordinates = geoobjects.map(geoobject => geoobject.coordinates);
-    const route = new ymaps.multiRouter.MultiRoute({
-      referencePoints: coordinates,
-      params: {
-        results: 1,
-      }
-    }, {
-      boundsAutoApply: true,
-      wayPointVisible: false,
-    });
 
-    this.map.geoObjects.add(route);
-  }
-  
-  componentDidMount() {
-    this.createMapElement();
-    this.initMap();
-  }
+    var polyline = new ymaps.Polyline(coordinates);
 
-  componentWillUnmount() {
-    this.removeMapElement();
-  }
-  
-  componentWillReceiveProps(nextProps) {
-    const { ids, pointsById } = nextProps;
-    const orderedPoints = [];
-    
-    ids.forEach(id => {
-      orderedPoints.push(pointsById[id]);
-    });
-
-    const geoobjects = orderedPoints.map((point, index) => (
-      this.createGeoObject(point, index)
-    ));
-
-    this.map.geoObjects.removeAll();
-    this.addGeoObjects(geoobjects);
-    this.addRoute(geoobjects);
+    this.map.geoObjects.add(polyline);
   }
     
   render = () => null

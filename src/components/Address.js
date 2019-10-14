@@ -7,6 +7,7 @@ import AddressList from './AddressList';
 
 import { fetchAddressList, addPoint } from 'store/actionCreators';
 
+import { generateAddressId } from 'helpers';
 export class Address extends Component {
 
   state = {
@@ -21,23 +22,44 @@ export class Address extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.addresses.length && !prevProps.addresses.length) {
-      this.setState({ isAddressListVisible: true });
+      this.showAddressList()
     }
   }
 
   onClickOutside = () => {
+    this.hideAddressList();
+  }
+
+  showAddressList() {
+    this.setState({ isAddressListVisible: true });
+  }
+
+  hideAddressList() {
     this.setState({ isAddressListVisible: false });
+  }
+  
+  handleAddressInputKeyDown = (e) => {
+    const { addresses } = this.props;
+
+    if (!addresses.length) return;
+    
+    if (e.keyCode === 13) {
+      this.props.addPoint(addresses[0], generateAddressId());
+      this.hideAddressList();
+    }
   }
   
   render() { 
     const {
-      onClickOutside
+      onClickOutside,
+      handleAddressInputKeyDown,
     } = this;
 
     const { 
       addresses,
       fetchAddressList,
       addPoint,
+      isAddressFetching,
     } = this.props;
 
     const {
@@ -49,6 +71,8 @@ export class Address extends Component {
         <AddressInput
           fetchAddressList={fetchAddressList}
           onClickOutside={onClickOutside}
+          isAddressFetching={isAddressFetching}
+          onKeyDown={handleAddressInputKeyDown}
         />
         <AddressList
           addresses={addresses}
@@ -62,6 +86,7 @@ export class Address extends Component {
 
 const mapStateToProps = (state) => ({
   addresses: state.addresses.list,
+  isAddressFetching: state.addresses.isFetching,
 });
 
 const mapActionCreators = {

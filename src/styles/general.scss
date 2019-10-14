@@ -64,7 +64,6 @@ body {
 
   &__input {
     font-size: 16px;
-    // flex-grow: 2;
     font-family: 'Roboto Slab', serif;
     border-radius: 3px;
     border: none;
@@ -74,19 +73,9 @@ body {
     box-sizing: border-box;
   }
 
-  // &__add-button,
   &__list-toggle-button {
     @include button;
   }
-
-  // &__add-button {
-  //   width: 24px;
-
-  //   i {
-  //     position: relative;
-  //     top: -1px;
-  //   }
-  // }
 
   &__list-toggle-button {
     width: 24px;
@@ -132,10 +121,6 @@ body {
 }
 
 .points-list {
-  // position: fixed;
-  // left: 20px;
-  // top: 50%;
-  // transform: translateY(-50%);
   min-height: 30px;
   max-height: 400px;
   background-color: #fff;

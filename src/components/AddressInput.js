@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import OutsideClickHandler from 'react-outside-click-handler';
-
+import Spinner from './Spinner';
 class AddressInput extends Component {
   static propTypes = {
     onClickOutside: PropTypes.func.isRequired,
     fetchAddressList: PropTypes.func.isRequired,
+    isAddressFetching: PropTypes.bool.isRequired,
   }
   
   constructor(props) {
@@ -19,7 +20,11 @@ class AddressInput extends Component {
   }
 
   render() {
-    const { onClickOutside } = this.props;
+    const { 
+      onClickOutside,
+      isAddressFetching,
+      onKeyDown,
+    } = this.props;
 
     return (
       <div className="address-input-block">
@@ -31,11 +36,12 @@ class AddressInput extends Component {
             placeholder="Search..."
             className="address-input-block__input"
             onChange={this.handleInputChange}
+            onKeyDown={onKeyDown}
           />
         </OutsideClickHandler>
-        <button className="address-input-block__list-toggle-button">
-          <i className="icofont-rounded-down"></i>
-        </button>
+        {isAddressFetching && (
+          <Spinner />
+        )}
       </div>
     );
   }

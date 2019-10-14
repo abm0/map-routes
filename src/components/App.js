@@ -7,20 +7,18 @@ import MapInterface from './MapInterface';
 import Address from './Address';
 import PointsList from './PointsList';
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <YMaps>
-        <div className="wrapper">
-          <MapInterface />
-          <Address />
-          <div className="points-list__wrapper">
-            <PointsList />
-          </div>
+const App = () => (
+  <Provider store={store}>
+    <YMaps>
+      <div className="wrapper">
+        <MapInterface />
+        <Address />
+        <div className="points-list__wrapper">
+          <PointsList />
         </div>
-      </YMaps>
-    </Provider>
-  );
-};
+      </div>
+    </YMaps>
+  </Provider>
+);
 
 export default App;
