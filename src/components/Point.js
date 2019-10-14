@@ -1,25 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import Button from './mixins/Button';
+
+const PointContainer = styled.div`
+  padding: 5px;
+  display: flex;
+  flex-direction: row;  
+  align-items: center;
+  margin-bottom: 4px;
+`;
+
+const DragHandle = styled.div`
+  position: relative;
+  top: 1px;
+`;
+
+const PointName = styled.span`
+  flex-grow: 2;
+  padding: 5px;
+  cursor: default;
+`;
+
+const RemoveButton = styled.button`
+  ${Button};
+
+  border: none;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 5px;
+`;
+
+const ButtonIcon = styled.i`
+  font-size: 15px;
+`;
 
 const Point = ({ point, onPointRemove, provided }) => {
   return (
-    <div className="point-item">
-      <div
-        className="point-item__drag-handle"
+    <PointContainer>
+      <DragHandle
         {...provided.dragHandleProps}
       >
         <i className="icofont-navigation-menu"></i>
-      </div>
-      <span className="point-item__name">
+      </DragHandle>
+      <PointName>
         {point.name}
-      </span>
-      <button 
-        className="point-item__remove-button"
+      </PointName>
+      <RemoveButton
         onClick={() => onPointRemove(point.id)}
       >
-        <i className="icofont-bin"></i>
-      </button>
-    </div>
+        <ButtonIcon className="icofont-bin"></ButtonIcon>
+      </RemoveButton>
+    </PointContainer>
   );
 }
 

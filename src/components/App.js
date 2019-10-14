@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import store from 'store';
 import { Provider } from 'react-redux';
 import { YMaps } from 'react-yandex-maps';
@@ -7,16 +8,31 @@ import MapInterface from './MapInterface';
 import Address from './Address';
 import PointsList from './PointsList';
 
+const Wrapper = styled.div`
+  height: 100vh;
+`;
+
+const PointsListWrapper = styled.div`
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+`;
+
 const App = () => (
   <Provider store={store}>
     <YMaps>
-      <div className="wrapper">
+      <Wrapper>
         <MapInterface />
         <Address />
-        <div className="points-list__wrapper">
+        <PointsListWrapper>
           <PointsList />
-        </div>
-      </div>
+        </PointsListWrapper>
+      </Wrapper>
     </YMaps>
   </Provider>
 );

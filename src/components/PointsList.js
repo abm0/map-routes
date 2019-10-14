@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -6,6 +7,17 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Point from 'components/Point';
 
 import { removePoint, changePointOrder } from 'store/actionCreators';
+
+const PointsListContainer = styled.div`
+  min-height: 30px;
+  max-height: 400px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #e4e4e4;
+  z-index: 1;
+  width: 200px;
+  padding-right: 5px;
+`;
 
 class PointsList extends Component {
   static propTypes = {
@@ -44,8 +56,7 @@ class PointsList extends Component {
       >
         <Droppable droppableId={'points-droppable'}>
           {provided => (
-            <div
-              className="points-list"
+            <PointsListContainer
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
@@ -71,7 +82,7 @@ class PointsList extends Component {
               ))}
               {provided.placeholder}
               {/* <button className="points-list__hide-button"></button> */}
-            </div>
+            </PointsListContainer>
           )}
         </Droppable>  
       </DragDropContext>

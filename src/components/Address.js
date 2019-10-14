@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import AddressInput from './AddressInput';
 import AddressList from './AddressList';
@@ -8,6 +9,14 @@ import AddressList from './AddressList';
 import { fetchAddressList, addPoint } from 'store/actionCreators';
 
 import { generateAddressId } from 'helpers';
+
+const AddressBlock = styled.div`
+  z-index: 2;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+`;
+
 export class Address extends Component {
 
   state = {
@@ -67,7 +76,7 @@ export class Address extends Component {
     } = this.state;
 
     return (
-      <div className="address-block">
+      <AddressBlock>
         <AddressInput
           fetchAddressList={fetchAddressList}
           onClickOutside={onClickOutside}
@@ -79,7 +88,7 @@ export class Address extends Component {
           isVisible={isAddressListVisible}
           addPoint={addPoint}
         />
-      </div>
+      </AddressBlock>
     );
   }
 }
