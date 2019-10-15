@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Button from './mixins/Button';
+import button from 'styles/styled-mixins/button';
 
 import { generateAddressId } from 'helpers';
 
@@ -17,17 +17,21 @@ const ItemName = styled.span`
   padding-left: 5px;
 `;
 
+const AddButton = styled.button`
+ ${button}
+`;
+
 const AddressItem = ({ address, handleAddClick }) => {
   return (
     <AddressItemBlock>
       <ItemName>
         {address.name}
       </ItemName>
-      <Button
+      <AddButton
         onClick={() => handleAddClick(address, generateAddressId())}
       >
         <i className="icofont-plus"></i>
-      </Button>
+      </AddButton>
     </AddressItemBlock>
   );
 }

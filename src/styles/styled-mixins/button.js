@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-
-export default styled.button`
+// TODO: add sass-like darken function
+export default () => `
   border-radius: 3px;
   border: none;
   height: 24px;

@@ -19,6 +19,7 @@ const AddressInputBlock = styled.div`
   transition: ease .3s box-shadow;
 `;
 
+// TODO: add flex-grow: 1 to child blocks
 const Input = styled.input`
   font-size: 16px;
   font-family: 'Roboto Slab', serif;
@@ -61,7 +62,6 @@ class AddressInput extends Component {
           <Input
             type="text"
             placeholder="Search..."
-            className="address-input-block__input"
             onChange={this.handleInputChange}
             onKeyDown={onKeyDown}
           />

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Button from './mixins/Button';
+import button from 'styles/styled-mixins/button';
 
 const PointContainer = styled.div`
   padding: 5px;
@@ -10,6 +10,7 @@ const PointContainer = styled.div`
   flex-direction: row;  
   align-items: center;
   margin-bottom: 4px;
+  position: relative;
 `;
 
 const DragHandle = styled.div`
@@ -24,15 +25,7 @@ const PointName = styled.span`
 `;
 
 const RemoveButton = styled.button`
-  ${Button};
-
-  border: none;
-  background-color: #ffffff;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 5px;
+  ${button};
 `;
 
 const ButtonIcon = styled.i`

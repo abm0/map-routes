@@ -15,3 +15,16 @@ export const moveElement = (arr, oldIndex, newIndex) => {
 
 export const generateAddressId = () =>
   new Date().getUTCMilliseconds()
+
+export const isPointAdded = (prevIds, nextIds) => {
+  return nextIds.length > prevIds.length;
+};
+
+export const getLastPointCoordinates = (orderedPoints) => {
+  const lastPoint = orderedPoints[orderedPoints.length - 1];
+
+  return [
+    lastPoint.lng,
+    lastPoint.lat
+  ];
+};

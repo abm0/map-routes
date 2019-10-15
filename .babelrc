@@ -1,5 +1,7 @@
 {
   "plugins": [
+    // TODO: make this work
+    ["babel-plugin-styled-components"],
     [
       "module-resolver",
       {

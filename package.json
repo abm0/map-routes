@@ -9,6 +9,7 @@
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
     "axios": "^0.19.0",
+    "babel-plugin-styled-components": "^1.10.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "cypress": "^3.4.1",
@@ -36,9 +37,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",

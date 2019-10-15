@@ -4,7 +4,7 @@ import store from 'store';
 import { Provider } from 'react-redux';
 import { YMaps } from 'react-yandex-maps';
 
-import MapInterface from './MapInterface';
+import Map from './Map';
 import Address from './Address';
 import PointsList from './PointsList';
 
@@ -27,7 +27,7 @@ const App = () => (
   <Provider store={store}>
     <YMaps>
       <Wrapper>
-        <MapInterface />
+        <Map />
         <Address />
         <PointsListWrapper>
           <PointsList />
