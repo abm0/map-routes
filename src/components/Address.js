@@ -6,15 +6,26 @@ import styled from 'styled-components';
 import AddressInput from './AddressInput';
 import AddressList from './AddressList';
 
-import { fetchAddressList, addPoint } from 'store/actionCreators';
+import {
+  fetchAddressList,
+  addPoint
+} from 'store/actionCreators';
 
-import { generateAddressId } from 'helpers';
+import {
+  generateAddressId
+} from 'helpers';
 
-const AddressBlock = styled.div`
+const AddressBlock = styled.div `
   z-index: 2;
   position: fixed;
   top: 20px;
   left: 20px;
+
+  @media screen and (max-width: 448px) {
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 `;
 
 export class Address extends Component {
@@ -22,7 +33,7 @@ export class Address extends Component {
   state = {
     isAddressListVisible: false,
   }
-  
+
   static propTypes = {
     addresses: PropTypes.array.isRequired,
     fetchAddressList: PropTypes.func.isRequired,
@@ -40,31 +51,37 @@ export class Address extends Component {
   }
 
   showAddressList() {
-    this.setState({ isAddressListVisible: true });
+    this.setState({
+      isAddressListVisible: true
+    });
   }
 
   hideAddressList() {
-    this.setState({ isAddressListVisible: false });
+    this.setState({
+      isAddressListVisible: false
+    });
   }
-  
+
   handleAddressInputKeyDown = (e) => {
-    const { addresses } = this.props;
+    const {
+      addresses
+    } = this.props;
 
     if (!addresses.length) return;
-    
+
     if (e.keyCode === 13) {
       this.props.addPoint(addresses[0], generateAddressId());
       this.hideAddressList();
     }
   }
-  
-  render() { 
+
+  render() {
     const {
       onClickOutside,
       handleAddressInputKeyDown,
     } = this;
 
-    const { 
+    const {
       addresses,
       fetchAddressList,
       addPoint,
@@ -75,19 +92,19 @@ export class Address extends Component {
       isAddressListVisible,
     } = this.state;
 
-    return (
-      <AddressBlock>
-        <AddressInput
+    return ( 
+      <AddressBlock >
+        <AddressInput 
           fetchAddressList={fetchAddressList}
           onClickOutside={onClickOutside}
           isAddressFetching={isAddressFetching}
           onKeyDown={handleAddressInputKeyDown}
-        />
-        <AddressList
+        /> 
+        <AddressList 
           addresses={addresses}
           isVisible={isAddressListVisible}
-          addPoint={addPoint}
-        />
+          addPoint={addPoint} 
+        /> 
       </AddressBlock>
     );
   }
@@ -102,5 +119,5 @@ const mapActionCreators = {
   fetchAddressList,
   addPoint,
 };
- 
+
 export default connect(mapStateToProps, mapActionCreators)(Address);

@@ -21,6 +21,15 @@ const PointsListWrapper = styled.div`
   display: flex;
   align-items: center;
   padding-left: 20px;
+
+  @media screen and (max-width: 448px) {
+    top: auto;
+    bottom: 0;
+    height: auto;
+    display: block;
+    width: 100%;
+    padding-left: 0;
+  }
 `;
 
 const App = () => (

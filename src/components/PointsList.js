@@ -17,6 +17,13 @@ const PointsListContainer = styled.div`
   z-index: 1;
   width: 200px;
   padding-right: 5px;
+
+  @media screen and (max-width: 448px) {
+    width: 100%;
+    padding-right: 0;
+    max-height: 250px;
+    overflow: auto;
+  }
 `;
 
 class PointsList extends Component {

@@ -17,6 +17,11 @@ const AddressInputBlock = styled.div`
   position: relative;
   box-shadow: none;
   transition: ease .3s box-shadow;
+
+  @media screen and (max-width: 448px) {
+    width: 100%;
+    border-radius: 0;
+  }
 `;
 
 // TODO: add flex-grow: 1 to child blocks
