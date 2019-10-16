@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import { Address } from '../Address';
 import puppeteer from 'puppeteer';
+import ShallowRenderer from 'react-test-renderer/shallow';
+import 'jest-styled-components';
 
-configure({ adapter: new Adapter() });
+const renderer = new ShallowRenderer();
 
 describe('Address block', () => {
   let browser;
@@ -15,20 +15,23 @@ describe('Address block', () => {
   const APP_URL = 'http://localhost:3000/';
   
   it('should match the snapshot', () => {
-    const address = shallow(
+    renderer.render(
       <Address
         addresses={[]}
         fetchAddressList={() => {}}
         addPoint={() => {}}
+        isAddressFetching={false}
       />
     );
 
+    const address = renderer.getRenderOutput();
+    
     expect(address).toMatchSnapshot();
   });
 
   describe('in browser', () => {
-    const addressInputSelector = '.address-input-block input[type="text"]';
-    const addressListItemSelector = '.address-list .address-item';
+    const addressInputSelector = '[data-e2e-id="address-input"]';
+    const addressListItemSelector = '[data-e2e-id="address-item"]';
     
     beforeAll(async () => {
       browser = await puppeteer.launch({

@@ -1,160 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Address block should match the snapshot 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Address
+<ForwardRef(styled.div)>
+  <AddressInput
+    fetchAddressList={[Function]}
+    isAddressFetching={false}
+    onClickOutside={[Function]}
+    onKeyDown={[Function]}
+  />
+  <UNDEFINED
     addPoint={[Function]}
     addresses={Array []}
-    fetchAddressList={[Function]}
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <AddressInput
-          fetchAddressList={[Function]}
-          onClickOutside={[Function]}
-        />,
-        <UNDEFINED
-          addPoint={[Function]}
-          addresses={Array []}
-          isVisible={false}
-        />,
-      ],
-      "className": "address-block",
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "fetchAddressList": [Function],
-          "onClickOutside": [Function],
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "addPoint": [Function],
-          "addresses": Array [],
-          "isVisible": false,
-        },
-        "ref": null,
-        "rendered": null,
-        "type": Object {
-          "$$typeof": Symbol(react.memo),
-          "WrappedComponent": [Function],
-          "compare": null,
-          "displayName": "Connect(AddressList)",
-          "type": [Function],
-          Symbol(Symbol.hasInstance): [Function],
-        },
-      },
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <AddressInput
-            fetchAddressList={[Function]}
-            onClickOutside={[Function]}
-          />,
-          <UNDEFINED
-            addPoint={[Function]}
-            addresses={Array []}
-            isVisible={false}
-          />,
-        ],
-        "className": "address-block",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "fetchAddressList": [Function],
-            "onClickOutside": [Function],
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "addPoint": [Function],
-            "addresses": Array [],
-            "isVisible": false,
-          },
-          "ref": null,
-          "rendered": null,
-          "type": Object {
-            "$$typeof": Symbol(react.memo),
-            "WrappedComponent": [Function],
-            "compare": null,
-            "displayName": "Connect(AddressList)",
-            "type": [Function],
-            Symbol(Symbol.hasInstance): [Function],
-          },
-        },
-      ],
-      "type": "div",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-  Symbol(enzyme.__childContext__): null,
-}
+    isVisible={false}
+  />
+</ForwardRef(styled.div)>
 `;

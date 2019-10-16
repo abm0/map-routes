@@ -23,7 +23,9 @@ const AddButton = styled.button`
 
 const AddressItem = ({ address, handleAddClick }) => {
   return (
-    <AddressItemBlock>
+    <AddressItemBlock
+      data-e2e-id="address-item"
+    >
       <ItemName>
         {address.name}
       </ItemName>

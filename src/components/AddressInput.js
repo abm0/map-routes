@@ -65,6 +65,7 @@ class AddressInput extends Component {
           onOutsideClick={onClickOutside}
         >
           <Input
+            data-e2e-id="address-input"
             type="text"
             placeholder="Search..."
             onChange={this.handleInputChange}

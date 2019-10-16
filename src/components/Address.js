@@ -94,7 +94,7 @@ export class Address extends Component {
 
     return ( 
       <AddressBlock >
-        <AddressInput 
+        <AddressInput
           fetchAddressList={fetchAddressList}
           onClickOutside={onClickOutside}
           isAddressFetching={isAddressFetching}
