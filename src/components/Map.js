@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { 
   YMaps, 
@@ -14,8 +13,6 @@ import {
   isPointAdded,
   getLastPointCoordinates,
 } from 'helpers';
-
-const leftOffset = 300;
 
 class Map extends React.Component {
   static propTypes = {

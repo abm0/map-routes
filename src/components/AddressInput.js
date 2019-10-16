@@ -22,9 +22,12 @@ const AddressInputBlock = styled.div`
     width: 100%;
     border-radius: 0;
   }
+
+  > div {
+    flex-grow: 1;
+  }
 `;
 
-// TODO: add flex-grow: 1 to child blocks
 const Input = styled.input`
   font-size: 16px;
   font-family: 'Roboto Slab', serif;
