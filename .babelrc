@@ -1,6 +1,8 @@
 {
   "plugins": [
-    // TODO: make this work
+    ["@babel/proposal-decorators", { "legacy": true } ],
+    // ["transform-decorators-legacy"],
+    // TODO: make this work 
     ["babel-plugin-styled-components"],
     [
       "module-resolver",

@@ -6,7 +6,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Point from 'components/Point';
 
-import { removePoint, changePointOrder } from 'store/actionCreators';
+// import { removePoint, changePointOrder } from 'store/actionCreators';
 
 const PointsListContainer = styled.div`
   min-height: 30px;
@@ -32,6 +32,13 @@ class PointsList extends Component {
     ids: PropTypes.array.isRequired,
     removePoint: PropTypes.func.isRequired,
     changePointOrder: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    pointsById: {},
+    ids: [],
+    removePoint: () => {},
+    changePointOrder: () => {},
   }
     
   onDragEnd = (result) => {
@@ -97,14 +104,15 @@ class PointsList extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  ids: state.points.ids,
-  pointsById: state.points.byId,
-});
+// const mapStateToProps = (state) => ({
+//   ids: state.points.ids,
+//   pointsById: state.points.byId,
+// });
 
-const mapActionCreators = {
-  removePoint,
-  changePointOrder,
-};
+// const mapActionCreators = {
+//   removePoint,
+//   changePointOrder,
+// };
  
-export default connect(mapStateToProps, mapActionCreators)(PointsList);
+// export default connect(mapStateToProps, mapActionCreators)(PointsList);
+export default PointsList;

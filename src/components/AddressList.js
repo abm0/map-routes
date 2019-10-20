@@ -38,14 +38,21 @@ const AddressList = ({
   );
 };
 
+AddressList.defaultProps = {
+  addresses: [],
+  isVisible: false,
+  addPoint: () => {},
+};
+
 AddressList.propTypes = {
   addresses: PropTypes.array.isRequired,
   isVisible: PropTypes.bool.isRequired,
   addPoint: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  addresses: state.addresses.list,
-});
+// const mapStateToProps = (state) => ({
+//   addresses: state.addresses.list,
+// });
  
-export default connect(mapStateToProps, null)(AddressList);
+// export default connect(mapStateToProps, null)(AddressList);
+export default AddressList;

@@ -8,7 +8,7 @@ import {
   Polyline,
 } from 'react-yandex-maps';
 
-import { updatePointPosition } from 'store/actionCreators';
+// import { updatePointPosition } from 'store/actionCreators';
 import {
   isPointAdded,
   getLastPointCoordinates,
@@ -18,6 +18,11 @@ class Map extends React.Component {
   static propTypes = {
     pointsById: PropTypes.object.isRequired,
     ids: PropTypes.array.isRequired,
+  }
+
+  static defaultProps = {
+    pointsById: {},
+    ids: [],
   }
   
   state = {
@@ -131,13 +136,14 @@ class Map extends React.Component {
   }
 };
 
-const mapStateToProps = (state) => ({
-  pointsById: state.points.byId,
-  ids: state.points.ids,
-});
+// const mapStateToProps = (state) => ({
+//   pointsById: state.points.byId,
+//   ids: state.points.ids,
+// });
 
-const mapActionCreators = {
-  updatePointPosition,
-};
+// const mapActionCreators = {
+//   updatePointPosition,
+// };
 
-export default connect(mapStateToProps, mapActionCreators)(Map);
+// export default connect(mapStateToProps, mapActionCreators)(Map);
+export default Map;

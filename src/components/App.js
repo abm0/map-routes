@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import store from 'store';
-import { Provider } from 'react-redux';
+// import store from 'store';
+// import { Provider } from 'react-redux';
 import { YMaps } from 'react-yandex-maps';
 
 import Map from './Map';
@@ -32,18 +32,17 @@ const PointsListWrapper = styled.div`
   }
 `;
 
+
 const App = () => (
-  <Provider store={store}>
-    <YMaps>
-      <Wrapper>
-        <Map />
-        <Address />
-        <PointsListWrapper>
-          <PointsList />
-        </PointsListWrapper>
-      </Wrapper>
-    </YMaps>
-  </Provider>
+  <YMaps>
+    <Wrapper>
+      <Map />
+      <Address />
+      <PointsListWrapper>
+        <PointsList />
+      </PointsListWrapper>
+    </Wrapper>
+  </YMaps>
 );
 
 export default App;

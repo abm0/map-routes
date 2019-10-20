@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { toJS } from 'mobx';
+import { observer, inject } from "mobx-react";
 import styled from 'styled-components';
 
 import AddressInput from './AddressInput';
 import AddressList from './AddressList';
 
-import {
-  fetchAddressList,
-  addPoint
-} from 'store/actionCreators';
+// import {
+//   fetchAddressList,
+//   addPoint
+// } from 'store/actionCreators';
 
 import {
   generateAddressId
@@ -28,8 +29,9 @@ const AddressBlock = styled.div `
   }
 `;
 
-export class Address extends Component {
-
+@inject('addressesStore')
+@observer
+class Address extends Component {
   state = {
     isAddressListVisible: false,
   }
@@ -40,9 +42,15 @@ export class Address extends Component {
     addPoint: PropTypes.func.isRequired,
   }
 
+  static defaultProps = {
+    addresses: [],
+    fetchAddressList: () => {},
+    addPoint: () => {},
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.addresses.length && !prevProps.addresses.length) {
-      this.showAddressList()
+    if (this.props.addressesStore.addresses.length && !prevProps.addressesStore.addresses.length) {
+      this.showAddressList();
     }
   }
 
@@ -82,42 +90,48 @@ export class Address extends Component {
     } = this;
 
     const {
-      addresses,
+      // addresses,
+      // fetchAddressList,
+      // addPoint,
+      // isAddressFetching,
       fetchAddressList,
-      addPoint,
-      isAddressFetching,
-    } = this.props;
+      addresses,
+      isFetching,
+    } = this.props.addressesStore;
 
     const {
       isAddressListVisible,
     } = this.state;
+
+    console.log('isAddressListVisible:', isAddressListVisible);
 
     return ( 
       <AddressBlock >
         <AddressInput
           fetchAddressList={fetchAddressList}
           onClickOutside={onClickOutside}
-          isAddressFetching={isAddressFetching}
+          isAddressFetching={isFetching}
           onKeyDown={handleAddressInputKeyDown}
         /> 
         <AddressList 
-          addresses={addresses}
+          addresses={toJS(addresses)}
           isVisible={isAddressListVisible}
-          addPoint={addPoint} 
+          addPoint={() => {}} 
         /> 
       </AddressBlock>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  addresses: state.addresses.list,
-  isAddressFetching: state.addresses.isFetching,
-});
+// const mapStateToProps = (state) => ({
+//   addresses: state.addresses.list,
+//   isAddressFetching: state.addresses.isFetching,
+// });
 
-const mapActionCreators = {
-  fetchAddressList,
-  addPoint,
-};
+// const mapActionCreators = {
+//   fetchAddressList,
+//   addPoint,
+// };
 
-export default connect(mapStateToProps, mapActionCreators)(Address);
+// export default connect(mapStateToProps, mapActionCreators)(Address);
+export default Address;
