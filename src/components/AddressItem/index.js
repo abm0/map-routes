@@ -1,25 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-import button from 'styles/styled-mixins/button';
 
 import { generateAddressId } from 'helpers';
 
-const AddressItemBlock = styled.li`
-  display: flex;
-  padding: 4px;
-`;
-
-const ItemName = styled.span`
-  flex-grow: 2;
-  cursor: default;
-  padding-left: 5px;
-`;
-
-const AddButton = styled.button`
- ${button}
-`;
+import {
+  AddressItemBlock,
+  ItemName,
+  AddButton,
+} from './AddressItem.styled';
 
 const AddressItem = ({ address, handleAddClick }) => {
   return (

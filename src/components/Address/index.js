@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 
-import AddressInput from './AddressInput';
-import AddressList from './AddressList';
+import AddressInput from '../AddressInput';
+import AddressList from '../AddressList';
+
+import { AddressBlock } from './Address.styled';
 
 import {
   fetchAddressList,
@@ -15,18 +16,6 @@ import {
   generateAddressId
 } from 'helpers';
 
-const AddressBlock = styled.div `
-  z-index: 2;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-
-  @media screen and (max-width: 448px) {
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
-`;
 
 export class Address extends Component {
 
