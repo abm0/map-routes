@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { 
-  YMaps, 
   Map as YMap,
   Placemark,
   Polyline,
@@ -114,19 +113,28 @@ class Map extends React.Component {
   }
   
   render() {
+    const { 
+      onMapLoad,
+    } = this.props;
+
     const {
       orderedPoints
     } = this.state;
-    
+
     return (
-      <YMaps>
-        <YMap state={this.state} defaultState={this.state} width={'100%'} height={'100%'}>
-          {orderedPoints.map((point, index) => (
-            this.renderPlacemark(point, index)
-          ))}
-          <Polyline geometry={this.getPolylineGeometry(orderedPoints)} />
-        </YMap>
-      </YMaps>
+      <YMap
+        state={this.state}
+        defaultState={this.state}
+        width={'100%'}
+        height={'100%'}
+        onLoad={onMapLoad}
+        onError={(error) => console.log(error)}
+      >
+        {orderedPoints.map((point, index) => (
+          this.renderPlacemark(point, index)
+        ))}
+        <Polyline geometry={this.getPolylineGeometry(orderedPoints)} />
+      </YMap>
     );
   }
 };

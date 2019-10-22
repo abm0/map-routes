@@ -4,21 +4,24 @@ import createSagaMiddleware from 'redux-saga'
 
 // import loggerMiddleware from 'redux-logger';
 import reducers from './reducers';
-import sagas from './sagas';
+// import sagas from './sagas';
 
-export const sagaMiddleware = createSagaMiddleware();
+// export const sagaMiddleware = createSagaMiddleware();
 
 const composeEnchancers = composeWithDevTools({});
 
+// TODO: cleanup
 const store = createStore(
   reducers, 
   // initialState, 
-  composeEnchancers(applyMiddleware(
+  composeEnchancers(
+    // applyMiddleware(
     // loggerMiddleware,
-    sagaMiddleware
-  ))
-);;
+    // sagaMiddleware
+    // )
+  )
+);
 
-sagaMiddleware.run(sagas);
+// sagaMiddleware.run(sagas);
 
 export default store;

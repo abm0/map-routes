@@ -9,7 +9,8 @@ import { AddressBlock } from './Address.styled';
 
 import {
   fetchAddressList,
-  addPoint
+  fetchAddressListSuccess,
+  addPoint,
 } from 'store/actionCreators';
 
 import {
@@ -26,6 +27,7 @@ export class Address extends Component {
   static propTypes = {
     addresses: PropTypes.array.isRequired,
     fetchAddressList: PropTypes.func.isRequired,
+    fetchAddressListSuccess: PropTypes.func.isRequired,
     addPoint: PropTypes.func.isRequired,
   }
 
@@ -71,9 +73,10 @@ export class Address extends Component {
     } = this;
 
     const {
-      addresses,
       fetchAddressList,
+      fetchAddressListSuccess,
       addPoint,
+      addresses,
       isAddressFetching,
     } = this.props;
 
@@ -85,9 +88,11 @@ export class Address extends Component {
       <AddressBlock >
         <AddressInput
           fetchAddressList={fetchAddressList}
+          fetchAddressListSuccess={fetchAddressListSuccess}
           onClickOutside={onClickOutside}
           isAddressFetching={isAddressFetching}
           onKeyDown={handleAddressInputKeyDown}
+          isAddressListVisible={isAddressListVisible}
         /> 
         <AddressList 
           addresses={addresses}
@@ -106,6 +111,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionCreators = {
   fetchAddressList,
+  fetchAddressListSuccess,
   addPoint,
 };
 

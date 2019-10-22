@@ -1,8 +1,7 @@
 import * as actionTypes from './actionTypes';
 
-export const fetchAddressList = (addressValue) => ({
+export const fetchAddressList = () => ({
   type: actionTypes.ADDRESS_LIST_FETCH,
-  addressValue,
 });
 
 export const fetchAddressListSuccess = (data) => ({
@@ -10,6 +9,7 @@ export const fetchAddressListSuccess = (data) => ({
   addressList: data,
 });
 
+// TODO: cleanup
 export const fetchAddressListFail = () => ({
   type: actionTypes.ADDRESS_LIST_FETCH_FAIL,
 });

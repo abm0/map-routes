@@ -1,33 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withYMaps } from 'react-yandex-maps';
 import debounce from 'lodash/debounce';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Spinner from '../Spinner';
 
-import { AddressInputBlock, Input } from './AddressInput.styled';
+import { formatGeocoderResponse } from 'helpers';
+
+import { 
+  AddressInputBlock, 
+  Input,
+  EnterButtonIcon,
+} from './AddressInput.styled';
 
 class AddressInput extends Component {
   static propTypes = {
     onClickOutside: PropTypes.func.isRequired,
     fetchAddressList: PropTypes.func.isRequired,
+    fetchAddressListSuccess: PropTypes.func.isRequired,
     isAddressFetching: PropTypes.bool.isRequired,
+    isAddressListVisible: PropTypes.bool.isRequired,
   }
   
   constructor(props) {
     super(props);
-    this.delayedAddressRequest = debounce(this.props.fetchAddressList, 1000);
-  }
-  
-  handleInputChange = (e) => {
-    this.delayedAddressRequest(e.target.value);
+    this.debouncedFetchAddressList = debounce(this.fetchAddressList, 1000)
   }
 
+  fetchAddressList = async (value) => {
+    const { 
+      fetchAddressList,
+      fetchAddressListSuccess,
+    } = this.props;
+    const { geocode } = this.props.ymaps;
+
+    fetchAddressList();
+    const result = await geocode(value);
+    const formattedData = formatGeocoderResponse(result.geoObjects);
+    fetchAddressListSuccess(formattedData);
+  }
+
+  handleInputChange = (e) => {
+    e.persist();
+    const { value } = e.target;
+
+    this.debouncedFetchAddressList(value);
+  }
+  
   render() {
     const { 
       onClickOutside,
-      isAddressFetching,
       onKeyDown,
+      isAddressFetching,
+      isAddressListVisible,
     } = this.props;
+
+    const isEnterIconVisible = !isAddressFetching && isAddressListVisible;
 
     return (
       <AddressInputBlock>
@@ -45,9 +73,12 @@ class AddressInput extends Component {
         {isAddressFetching && (
           <Spinner />
         )}
+        {isEnterIconVisible && (
+          <EnterButtonIcon />
+        )}
       </AddressInputBlock>
     );
   }
 }
  
-export default AddressInput;
+export default withYMaps(AddressInput);

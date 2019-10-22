@@ -28,3 +28,26 @@ export const getLastPointCoordinates = (orderedPoints) => {
     lastPoint.lat
   ];
 };
+
+export const formatGeocoderResponse = (geoObjects) => {
+  const geoObjectsArr = geoObjects.toArray();
+
+  const formattedData = geoObjectsArr.map((geoObject) => {
+    const [lng, lat] = 
+      geoObject.geometry
+        .getCoordinates()
+        .map(value => value.toString());
+      
+    const name = geoObject.properties.get('name');
+    const description = geoObject.properties.get('text');
+
+    return {
+      lat,
+      lng,
+      name,
+      description,
+    };
+  });
+  
+  return formattedData;
+};
