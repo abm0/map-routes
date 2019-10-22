@@ -9,11 +9,6 @@ export const fetchAddressListSuccess = (data) => ({
   addressList: data,
 });
 
-// TODO: cleanup
-export const fetchAddressListFail = () => ({
-  type: actionTypes.ADDRESS_LIST_FETCH_FAIL,
-});
-
 export const addPoint = (address, id) => ({
   type: actionTypes.POINT_ADD,
   address,

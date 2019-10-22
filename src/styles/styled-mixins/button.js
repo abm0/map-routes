@@ -1,4 +1,5 @@
-// TODO: add sass-like darken function
+import { darken } from 'polished';
+
 export default () => `
   border-radius: 3px;
   border: none;
@@ -10,7 +11,7 @@ export default () => `
   padding: 0;
 
   &:hover {
-    background-color: darken(#fff, 5%);
+    background-color: ${darken(0.05, '#fff')};
     cursor: pointer;
   }
 `;
