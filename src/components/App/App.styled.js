@@ -13,6 +13,7 @@ export const PointsListWrapper = styled.div`
   display: flex;
   align-items: center;
   padding-left: 20px;
+  width: 0;
 
   @media screen and (max-width: 448px) {
     top: auto;
