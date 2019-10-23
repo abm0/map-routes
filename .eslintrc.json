@@ -54,7 +54,10 @@
       }
     },
     {
-      "files": ["src/**/*.test.js"],
+      "files": [
+        "src/**/*.test.js",
+        "src/store/localStorage.js"
+      ],
       "rules": {
         "no-undef": 0
       }
