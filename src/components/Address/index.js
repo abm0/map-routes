@@ -17,7 +17,6 @@ import AddressList from '../AddressList';
 
 import { AddressBlock } from './Address.styled';
 
-
 export class Address extends Component {
 
   state = { isAddressListVisible: false }
@@ -42,7 +41,7 @@ export class Address extends Component {
     this.hideAddressList();
   }
 
-  handleAddressInputKeyDown = (e) => {
+  onAddressInputSubmit = () => {
     const {
       addresses,
       addPoint, 
@@ -50,10 +49,8 @@ export class Address extends Component {
 
     if (!addresses.length) return;
 
-    if (e.keyCode === 13) {
-      addPoint(addresses[0], generateAddressId());
-      this.hideAddressList();
-    }
+    addPoint(addresses[0], generateAddressId());
+    this.hideAddressList();
   }
 
   showAddressList() {
@@ -67,7 +64,7 @@ export class Address extends Component {
   render() {
     const {
       onClickOutside,
-      handleAddressInputKeyDown,
+      onAddressInputSubmit,
     } = this;
 
     const {
@@ -87,7 +84,7 @@ export class Address extends Component {
           fetchAddressListSuccess={fetchAddressListSuccess}
           onClickOutside={onClickOutside}
           isAddressFetching={isAddressFetching}
-          onKeyDown={handleAddressInputKeyDown}
+          onSubmit={onAddressInputSubmit}
           isAddressListVisible={isAddressListVisible}
         /> 
         <AddressList 

@@ -20,9 +20,11 @@ class AddressInput extends Component {
     fetchAddressListSuccess: PropTypes.func.isRequired,
     isAddressFetching: PropTypes.bool.isRequired,
     isAddressListVisible: PropTypes.bool.isRequired,
-    onKeyDown: PropTypes.func.isRequired,
-  };
+    onSubmit: PropTypes.func.isRequired,
+  }
 
+  state = { value: '' }
+  
   constructor(props) {
     super(props);
     this.debouncedFetchAddressList = debounce(this.fetchAddressList, 500);
@@ -40,22 +42,42 @@ class AddressInput extends Component {
     const result = await geocode(value);
     const formattedData = formatGeocoderResponse(result.geoObjects);
     fetchAddressListSuccess(formattedData);
-  };
+  }
 
   handleInputChange = e => {
     e.persist();
     const { value } = e.target;
 
+    this.setState({ value });
     this.debouncedFetchAddressList(value);
-  };
+  }
+
+  handleKeyDown = e => {
+    const { onSubmit } = this.props;
+
+    if (e.keyCode === 13) {
+      onSubmit();
+      this.clearInputValue();
+    }
+  }
+
+  clearInputValue() {
+    this.setState({ value: '' });
+  }
 
   render() {
     const {
       onClickOutside,
-      onKeyDown,
       isAddressFetching,
       isAddressListVisible,
     } = this.props;
+
+    const { value } = this.state;
+
+    const {
+      handleKeyDown,
+      handleInputChange,
+    } = this;
 
     const isEnterIconVisible = !isAddressFetching && isAddressListVisible;
 
@@ -66,8 +88,9 @@ class AddressInput extends Component {
             data-e2e-id="address-input"
             type="text"
             placeholder="Search..."
-            onChange={this.handleInputChange}
-            onKeyDown={onKeyDown}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            value={value}
           />
         </OutsideClickHandler>
         {isAddressFetching && <Spinner />}

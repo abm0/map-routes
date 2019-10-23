@@ -84,7 +84,7 @@ class Map extends React.Component {
 
     const description = result.geoObjects.get(0).properties.get('text');
     const addressArr = description.split(', ');
-    const geoObjectName = addressArr[addressArr.length - 1];
+    const geoObjectName = addressArr[1]; 
 
     const data = {
       lng,
