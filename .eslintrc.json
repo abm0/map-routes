@@ -31,7 +31,8 @@
       }
     ],
     "no-undef": 1,
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "no-console": "off"
   },
   "overrides": [
     {
