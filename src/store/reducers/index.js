@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import addresses from './addressesReducer';
-import points from './pointsReducer';
+import addresses from './addresses';
+import points from './points';
 
 export default combineReducers({
   addresses,

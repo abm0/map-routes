@@ -1,4 +1,4 @@
-import addressesReducer, { initialAddressesState } from '../addressesReducer';
+import addressesReducer, { initialAddressesState } from '../addresses';
 import * as actionCreators from '../../actionCreators';
 import * as actionTypes from '../../actionTypes';
 
@@ -47,9 +47,7 @@ describe('addresses reducer', () => {
   
   describe('on ADDRESS_LIST_FETCH_FAIL action', () => {
     it('should set isFetching to false and not update address list', () => {
-      const action = {
-        type: actionTypes.ADDRESS_LIST_FETCH_FAIL,
-      };
+      const action = { type: actionTypes.ADDRESS_LIST_FETCH_FAIL };
   
       const expectedState = {
         isFetching: false,

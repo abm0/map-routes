@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const AddressBlock = styled.div `
+export const AddressBlock = styled.div`
   z-index: 2;
   position: fixed;
   top: 20px;

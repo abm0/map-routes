@@ -9,7 +9,9 @@ import {
   AddButton,
 } from './AddressItem.styled';
 
-const AddressItem = ({ address, handleAddClick }) => {
+const AddressItem = ({
+ address, handleAddClick, 
+}) => {
   return (
     <AddressItemBlock
       data-e2e-id="address-item"
@@ -20,7 +22,7 @@ const AddressItem = ({ address, handleAddClick }) => {
       <AddButton
         onClick={() => handleAddClick(address, generateAddressId())}
       >
-        <i className="icofont-plus"></i>
+        <i className="icofont-plus" />
       </AddButton>
     </AddressItemBlock>
   );
@@ -35,5 +37,7 @@ AddressItem.propTypes = {
   }),
   handleAddClick: PropTypes.func.isRequired,
 };
+
+AddressItem.defaultProps = { address: {} };
  
 export default AddressItem;

@@ -8,26 +8,20 @@ import Address from '../Address';
 import PointsList from '../PointsList';
 import Spinner from '../Spinner';
 
-import {
-  Wrapper,
-  PointsListWrapper,
-  LoadingOverlay,
-} from './App.styled';
+import { Wrapper, PointsListWrapper, LoadingOverlay } from './App.styled';
 
 const YMAPS_API_KEY = '7547cd62-6ddd-4fe8-bbef-55ea5c7e70bf';
 
 class App extends Component {
-  state = { isMapLoaded: false }
+  state = { isMapLoaded: false };
 
   handleMapLoad = () => {
-    this.setState({
-      isMapLoaded: true,
-    });
-  }
-  
+    this.setState({ isMapLoaded: true });
+  };
+
   render() {
     const { isMapLoaded } = this.state;
-    
+
     return (
       <>
         {!isMapLoaded && (

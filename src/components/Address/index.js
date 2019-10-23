@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import AddressInput from '../AddressInput';
-import AddressList from '../AddressList';
-
-import { AddressBlock } from './Address.styled';
-
+import { addressShape } from 'store/reducers/addresses';
 import {
   fetchAddressList,
   fetchAddressListSuccess,
@@ -14,25 +9,31 @@ import {
 } from 'store/actionCreators';
 
 import {
-  generateAddressId
+  generateAddressId,
 } from 'helpers';
+
+import AddressInput from '../AddressInput';
+import AddressList from '../AddressList';
+
+import { AddressBlock } from './Address.styled';
 
 
 export class Address extends Component {
 
-  state = {
-    isAddressListVisible: false,
-  }
+  state = { isAddressListVisible: false }
 
   static propTypes = {
-    addresses: PropTypes.array.isRequired,
+    addresses: PropTypes.arrayOf(PropTypes.shape(addressShape)).isRequired,
     fetchAddressList: PropTypes.func.isRequired,
     fetchAddressListSuccess: PropTypes.func.isRequired,
     addPoint: PropTypes.func.isRequired,
+    isAddressFetching: PropTypes.bool.isRequired,
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.addresses.length && !prevProps.addresses.length) {
+  componentDidUpdate(prevProps) {
+    const { addresses } = this.props;
+    
+    if (addresses.length && !prevProps.addresses.length) {
       this.showAddressList()
     }
   }
@@ -41,29 +42,26 @@ export class Address extends Component {
     this.hideAddressList();
   }
 
-  showAddressList() {
-    this.setState({
-      isAddressListVisible: true
-    });
-  }
-
-  hideAddressList() {
-    this.setState({
-      isAddressListVisible: false
-    });
-  }
-
   handleAddressInputKeyDown = (e) => {
     const {
-      addresses
+      addresses,
+      addPoint, 
     } = this.props;
 
     if (!addresses.length) return;
 
     if (e.keyCode === 13) {
-      this.props.addPoint(addresses[0], generateAddressId());
+      addPoint(addresses[0], generateAddressId());
       this.hideAddressList();
     }
+  }
+
+  showAddressList() {
+    this.setState({ isAddressListVisible: true });
+  }
+
+  hideAddressList() {
+    this.setState({ isAddressListVisible: false });
   }
 
   render() {
@@ -80,12 +78,10 @@ export class Address extends Component {
       isAddressFetching,
     } = this.props;
 
-    const {
-      isAddressListVisible,
-    } = this.state;
+    const { isAddressListVisible } = this.state;
 
     return ( 
-      <AddressBlock >
+      <AddressBlock>
         <AddressInput
           fetchAddressList={fetchAddressList}
           fetchAddressListSuccess={fetchAddressListSuccess}

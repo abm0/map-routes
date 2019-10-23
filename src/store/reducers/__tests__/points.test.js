@@ -1,4 +1,4 @@
-import pointsReducer, { initialPointsState } from '../pointsReducer';
+import pointsReducer, { initialPointsState } from '../points';
 import * as actionCreators from '../../actionCreators';
 
 describe('points reducer', () => {
@@ -17,7 +17,7 @@ describe('points reducer', () => {
           [newId]: {
             id: newId,
             ...newAddress,
-          }
+          },
         },
         ids: [newId],
       };
@@ -35,7 +35,7 @@ describe('points reducer', () => {
             id: newId,
             lat: 'lat',
             lng: 'lng',
-          }
+          },
         },
         ids: [newId],
       };
@@ -79,12 +79,8 @@ describe('points reducer', () => {
       it('should remove point', () => {  
         const expectedState = {
           byId: {
-            [secondId]: {
-              ...initialState.byId[secondId],
-            },
-            [thirdId]: {
-              ...initialState.byId[thirdId],
-            },
+            [secondId]: { ...initialState.byId[secondId] },
+            [thirdId]: { ...initialState.byId[thirdId] },
           },
           ids: [secondId, thirdId],
         };
@@ -102,13 +98,14 @@ describe('points reducer', () => {
         const newIndex = 2;
 
         const expectedState = {
-          byId: {
-            ...initialState.byId,
-          },
+          byId: { ...initialState.byId },
           ids: [firstId, thirdId, secondId],
         };
         
-        const action = actionCreators.changePointOrder({ oldIndex, newIndex });
+        const action = actionCreators.changePointOrder({
+ oldIndex,
+newIndex, 
+});
         const actualState = pointsReducer(initialState, action);
   
         expect(actualState).toEqual(expectedState);
@@ -126,7 +123,7 @@ describe('points reducer', () => {
               ...initialState.byId[secondId],
               lng: 'lng4',
               lat: 'lat4',
-            }
+            },
           },
         };
 

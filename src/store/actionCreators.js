@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
-export const fetchAddressList = () => ({
-  type: actionTypes.ADDRESS_LIST_FETCH,
+export const fetchAddressList = () => ({ 
+  type: actionTypes.ADDRESS_LIST_FETCH, 
 });
 
 export const fetchAddressListSuccess = (data) => ({

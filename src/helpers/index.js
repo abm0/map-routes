@@ -4,11 +4,11 @@ export const moveElement = (arr, oldIndex, newIndex) => {
     return arr;
   }
 
-  const _arr = [...arr];
+  const arrCopy = [...arr];
 
-  const element = _arr.splice(oldIndex, 1);
-  const leftArr = _arr.slice(0, newIndex);
-  const rightArr = _arr.slice(newIndex);
+  const element = arrCopy.splice(oldIndex, 1);
+  const leftArr = arrCopy.slice(0, newIndex);
+  const rightArr = arrCopy.slice(newIndex);
 
   return [...leftArr, ...element, ...rightArr];
 }
@@ -25,7 +25,7 @@ export const getLastPointCoordinates = (orderedPoints) => {
 
   return [
     lastPoint.lng,
-    lastPoint.lat
+    lastPoint.lat,
   ];
 };
 

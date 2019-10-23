@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { handleActions } from 'redux-actions';
 
 import * as actionTypes from '../actionTypes';
@@ -8,7 +9,7 @@ export const initialAddressesState = {
 };
 
 const addressesReducer = handleActions({
-  [actionTypes.ADDRESS_LIST_FETCH]: (state, action) => ({
+  [actionTypes.ADDRESS_LIST_FETCH]: state => ({
     ...state,
     isFetching: true,
     list: [],
@@ -20,10 +21,17 @@ const addressesReducer = handleActions({
     isFetching: false,
   }),
 
-  [actionTypes.ADDRESS_LIST_FETCH_FAIL]: (state, action) => ({
+  [actionTypes.ADDRESS_LIST_FETCH_FAIL]: state => ({
     ...state,
     isFetching: false,
   }),
 }, initialAddressesState);
+
+export const addressShape = {
+  lat: PropTypes.string,
+  lng: PropTypes.string,
+  name: PropTypes.string,
+  description: PropTypes.string,
+};
 
 export default addressesReducer;

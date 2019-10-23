@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { pointShape } from 'store/reducers/points';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+import { removePoint, changePointOrder } from 'store/actionCreators';
 import Point from '../Point';
 
-import { removePoint, changePointOrder } from 'store/actionCreators';
 
 import { PointsListContainer } from './PointsList.styled';
 
 class PointsList extends Component {
   static propTypes = {
-    pointsById: PropTypes.object.isRequired,
-    ids: PropTypes.array.isRequired,
+    pointsById: PropTypes.shape(pointShape).isRequired,
+    ids: PropTypes.arrayOf(PropTypes.number).isRequired,
     removePoint: PropTypes.func.isRequired,
     changePointOrder: PropTypes.func.isRequired,
   }
@@ -20,7 +21,9 @@ class PointsList extends Component {
   onDragEnd = (result) => {
     if (result.reason !== "DROP") return;
 
-    this.props.changePointOrder({
+    const { changePointOrder } = this.props;
+
+    changePointOrder({
       oldIndex: result.source.index,
       newIndex: result.destination.index,
       addressId: result.draggableId,
@@ -44,7 +47,7 @@ class PointsList extends Component {
       <DragDropContext
         onDragEnd={onDragEnd}
       >
-        <Droppable droppableId={'points-droppable'}>
+        <Droppable droppableId="points-droppable">
           {provided => (
             <PointsListContainer
               ref={provided.innerRef}

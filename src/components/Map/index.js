@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { pointShape } from 'store/reducers/points';
 import { 
   Map as YMap,
   Placemark,
@@ -13,23 +14,36 @@ import {
   getLastPointCoordinates,
 } from 'helpers';
 
+const mapConfig = {
+  center: [55.75, 37.57], 
+  zoom: 9,
+  controls: [],
+  points: {},
+};
+
 class Map extends React.Component {
   static propTypes = {
-    pointsById: PropTypes.object.isRequired,
-    ids: PropTypes.array.isRequired,
+    pointsById: PropTypes.shape(pointShape),
+    ids: PropTypes.arrayOf(PropTypes.number),
+    onMapLoad: PropTypes.func.isRequired,
+    updatePointPosition: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = { 
+    pointsById: {},
+    ids: [],
   }
   
   state = {
-    center: [55.75, 37.57], 
-    zoom: 9,
-    controls: [],
-    points: {},
+    ...mapConfig,
     orderedPoints: [],
     ids: [],
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { ids, pointsById } = nextProps;
+    const {
+      ids, pointsById, 
+    } = nextProps;
     const orderedPoints = [];
     
     ids.forEach(id => {
@@ -47,28 +61,27 @@ class Map extends React.Component {
 
     return newState;
   }
-
-  isPointAdded(prevIds, nextIds) {
-    return nextIds.length > prevIds.length;
-  }
-
-  getLastPointCoordinates(orderedPoints) {
-    const lastPoint = orderedPoints[orderedPoints.length - 1];
-
-    return [
-      lastPoint.lng,
-      lastPoint.lat
-    ];
-  }
   
   // TODO: implement updating name on drag end
-  onDragEnd = (id, e) => {
+  onDragEnd = (e, id) => {
     const { updatePointPosition } = this.props;
+    // eslint-disable-next-line
     const coordinates = e.originalEvent.target.geometry._coordinates;
 
     updatePointPosition(coordinates, id);
   }
-  
+
+  getPolylineGeometry() {
+    const { orderedPoints } = this.state;
+    
+    return orderedPoints.map(point => (
+      [
+        point.lng,
+        point.lat,
+      ]
+    ));
+  }
+
   renderPlacemark(point, index) {
     const coordinates = [
       parseFloat(point.lng),
@@ -91,42 +104,29 @@ class Map extends React.Component {
         draggable: true,
         hintHideTimeout: 0,
       },
-      modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
+      modules: ['geoObject.addon.balloon', 'geoObject.addon.hint'],
     };
     
     return (
       <Placemark
         key={point.id}
-        onDragEnd={this.onDragEnd.bind(this, point.id)}
+        onDragEnd={(e) => this.onDragEnd(e, point.id)}
         {...placeMark}
       />
     );
   }
-
-  getPolylineGeometry(points) {
-    return points.map(point => (
-      [
-        point.lng,
-        point.lat
-      ]
-    ));
-  }
   
   render() {
-    const { 
-      onMapLoad,
-    } = this.props;
+    const { onMapLoad } = this.props;
 
-    const {
-      orderedPoints
-    } = this.state;
+    const { orderedPoints } = this.state;
 
     return (
       <YMap
         state={this.state}
         defaultState={this.state}
-        width={'100%'}
-        height={'100%'}
+        width="100%"
+        height="100%"
         onLoad={onMapLoad}
         onError={(error) => console.log(error)}
       >
@@ -144,8 +144,6 @@ const mapStateToProps = (state) => ({
   ids: state.points.ids,
 });
 
-const mapActionCreators = {
-  updatePointPosition,
-};
+const mapActionCreators = { updatePointPosition };
 
 export default connect(mapStateToProps, mapActionCreators)(Map);

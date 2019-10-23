@@ -11,7 +11,7 @@ export const AddressInputBlock = styled.div`
   z-index: 3;
   position: relative;
   box-shadow: none;
-  transition: ease .3s box-shadow;
+  transition: ease 0.3s box-shadow;
   align-items: center;
 
   @media screen and (max-width: 448px) {
@@ -69,3 +69,9 @@ export const EnterButtonIcon = styled.span`
     border-bottom-right-radius: 2px;
   }
 `;
+
+export default {
+  AddressInputBlock,
+  Input,
+  EnterButtonIcon, 
+};  

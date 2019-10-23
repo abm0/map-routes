@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { addressShape } from 'store/reducers/addresses';
 import PropTypes from 'prop-types';
 import AddressItem from '../AddressItem';
 
@@ -16,7 +16,7 @@ const AddressList = ({
       {addresses.map((address, index) => (
         <AddressItem
           address={address}
-          key={index}
+          key={`address-${index}`}
           handleAddClick={addPoint}
         />
       ))}
@@ -25,13 +25,11 @@ const AddressList = ({
 };
 
 AddressList.propTypes = {
-  addresses: PropTypes.array.isRequired,
+  addresses: PropTypes.arrayOf(PropTypes.shape(addressShape)).isRequired,
   isVisible: PropTypes.bool.isRequired,
   addPoint: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  addresses: state.addresses.list,
-});
+const mapStateToProps = (state) => ({ addresses: state.addresses.list });
  
 export default connect(mapStateToProps, null)(AddressList);

@@ -1,11 +1,11 @@
+import PropTypes from 'prop-types';
 import { handleActions } from 'redux-actions';
 import { moveElement } from 'helpers';
 
+import cloneDeep from 'lodash/cloneDeep';
 import * as actionTypes from '../actionTypes';
 
-import cloneDeep from 'lodash/cloneDeep';
-
-const initialPointsState = {
+export const initialPointsState = {
   byId: {},
   ids: [],
 };
@@ -16,9 +16,9 @@ const pointsReducer = handleActions({
     const { byId } = newState;
     const newId = action.id;
 
-    const presentPoint = Object.values(byId).filter(point => 
+    const presentPoint = Object.values(byId).filter(point =>
       point.lat === action.address.lat &&
-      point.lng === action.address.lng
+      point.lng === action.address.lng,
     );
 
     if (presentPoint.length) {
@@ -29,7 +29,7 @@ const pointsReducer = handleActions({
       ...newState,
       byId: {
         ...newState.byId,
-        [newId]: { 
+        [newId]: {
           ...action.address,
           id: newId,
         },
@@ -40,7 +40,10 @@ const pointsReducer = handleActions({
   
   [actionTypes.POINT_REMOVE]: (state, action) => {
     const newState = cloneDeep(state);
-    const { byId, ids } = newState;
+    const {
+      byId, 
+      ids,
+    } = newState;
     const { id } = action;
 
     ids.splice(ids.indexOf(id), 1);
@@ -48,9 +51,7 @@ const pointsReducer = handleActions({
 
     return {
       ...newState,
-      byId: {
-        ...byId
-      },
+      byId: { ...byId },
       ids: [...ids],
     };
   },
@@ -88,11 +89,17 @@ const pointsReducer = handleActions({
 
     return {
       ...newState,
-      byId: {
-        ...byId,
-      }
+      byId: { ...byId },
     }
   },
 }, initialPointsState);
+
+export const pointShape = {
+  id: PropTypes.number,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  lat: PropTypes.string,
+  lng: PropTypes.string,
+};
 
 export default pointsReducer;
