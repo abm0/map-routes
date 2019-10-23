@@ -6,9 +6,14 @@ import {
   Map as YMap,
   Placemark,
   Polyline,
+  withYMaps,
 } from 'react-yandex-maps';
 
-import { updatePointPosition } from 'store/actionCreators';
+import { 
+  updatePointPosition,
+  updatePointPositionSuccess,
+} from 'store/actionCreators';
+
 import {
   isPointAdded,
   getLastPointCoordinates,
@@ -27,6 +32,9 @@ class Map extends React.Component {
     ids: PropTypes.arrayOf(PropTypes.number),
     onMapLoad: PropTypes.func.isRequired,
     updatePointPosition: PropTypes.func.isRequired,
+    updatePointPositionSuccess: PropTypes.func.isRequired,
+    // eslint-disable-next-line
+    ymaps: PropTypes.object,
   }
 
   static defaultProps = { 
@@ -62,13 +70,32 @@ class Map extends React.Component {
     return newState;
   }
   
-  // TODO: implement updating name on drag end
-  onDragEnd = (e, id) => {
-    const { updatePointPosition } = this.props;
+  onDragEnd = async (e, id) => {
+    const {
+      updatePointPosition,
+      updatePointPositionSuccess,
+      ymaps,
+    } = this.props;
     // eslint-disable-next-line
-    const coordinates = e.originalEvent.target.geometry._coordinates;
+    const [lng, lat] = e.originalEvent.target.geometry._coordinates;
 
-    updatePointPosition(coordinates, id);
+    updatePointPosition(id);
+    const result = await ymaps.geocode([lng, lat]);
+
+    const description = result.geoObjects.get(0).properties.get('text');
+    const addressArr = description.split(', ');
+    const geoObjectName = addressArr[addressArr.length - 1];
+
+    const data = {
+      lng,
+      lat,
+      name: geoObjectName,
+      description,
+    };
+
+    console.log(data);
+
+    updatePointPositionSuccess(data, id);
   }
 
   getPolylineGeometry() {
@@ -144,6 +171,9 @@ const mapStateToProps = (state) => ({
   ids: state.points.ids,
 });
 
-const mapActionCreators = { updatePointPosition };
+const mapActionCreators = { 
+  updatePointPosition,
+  updatePointPositionSuccess,
+};
 
-export default connect(mapStateToProps, mapActionCreators)(Map);
+export default connect(mapStateToProps, mapActionCreators)(withYMaps(Map));

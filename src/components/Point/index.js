@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pointShape } from 'store/reducers/points';
+
+import Spinner from '../Spinner';
+
 import {
   PointContainer,
   DragHandle,
@@ -10,7 +13,9 @@ import {
 } from './Point.styled';
 
 const Point = ({
- point, onPointRemove, provided, 
+  point,
+  onPointRemove,
+  provided,
 }) => {
   return (
     <PointContainer>
@@ -22,11 +27,15 @@ const Point = ({
       <PointName>
         {point.name}
       </PointName>
-      <RemoveButton
-        onClick={() => onPointRemove(point.id)}
-      >
-        <ButtonIcon className="icofont-bin" />
-      </RemoveButton>
+      {point.isSaving ? (
+        <Spinner />
+      ) : (
+        <RemoveButton
+          onClick={() => onPointRemove(point.id)}
+        >
+          <ButtonIcon className="icofont-bin" />
+        </RemoveButton>
+      )}
     </PointContainer>
   );
 }

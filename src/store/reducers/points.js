@@ -12,8 +12,8 @@ export const initialPointsState = {
 
 const pointsReducer = handleActions({
   [actionTypes.POINT_ADD]: (state, action) => {
-    const newState = cloneDeep(state);
-    const { byId } = newState;
+    const nextState = cloneDeep(state);
+    const { byId } = nextState;
     const newId = action.id;
 
     const presentPoint = Object.values(byId).filter(point =>
@@ -22,74 +22,100 @@ const pointsReducer = handleActions({
     );
 
     if (presentPoint.length) {
-      return { ...newState };
+      return { ...nextState };
     }
     
     return {
-      ...newState,
+      ...nextState,
       byId: {
-        ...newState.byId,
+        ...nextState.byId,
         [newId]: {
           ...action.address,
           id: newId,
+          isSaving: false,
         },
       },
-      ids: [...newState.ids, newId],
+      ids: [...nextState.ids, newId],
     };
   },
   
   [actionTypes.POINT_REMOVE]: (state, action) => {
-    const newState = cloneDeep(state);
+    const nextState = cloneDeep(state);
     const {
       byId, 
       ids,
-    } = newState;
+    } = nextState;
     const { id } = action;
 
     ids.splice(ids.indexOf(id), 1);
     delete byId[id];
 
     return {
-      ...newState,
+      ...nextState,
       byId: { ...byId },
       ids: [...ids],
     };
   },
   
   [actionTypes.POINT_ORDER_CHANGE]: (state, action) => {
-    const newState = cloneDeep(state);
+    const nextState = cloneDeep(state);
     
     const {
       oldIndex,
       newIndex,
     } = action;
 
-    const { ids } = newState;
+    const { ids } = nextState;
 
     const reorderedIds = moveElement(ids, oldIndex, newIndex)
 
     return {
-      ...newState,
+      ...nextState,
       ids: reorderedIds,
     };
   },
 
   [actionTypes.POINT_POSITION_CHANGE]: (state, action) => {
-    const newState = cloneDeep(state);
+    const nextState = cloneDeep(state);
+    const { id } = action;
+    
+    return {
+      ...nextState,
+      byId: {
+        ...nextState.byId,
+        [id]: {
+          ...nextState.byId[id],
+          isSaving: true,
+        },
+      },
+    };
+  },
+  
+  [actionTypes.POINT_POSITION_CHANGE_SUCCESS]: (state, action) => {
+    const nextState = cloneDeep(state);
     
     const {
-      coordinates,
+      data,
       id,
     } = action;
     
-    const { byId } = newState;
+    const { byId } = nextState;
 
-    byId[id].lng = coordinates[0].toString();
-    byId[id].lat = coordinates[1].toString();
+    const point = { ...data };
+
+    point.id = id;
+    point.lng = point.lng.toString();
+    point.lat = point.lat.toString();
 
     return {
-      ...newState,
-      byId: { ...byId },
+      ...nextState,
+      byId: {
+        ...byId,
+        [id]: {
+          ...point,
+          isSaving: false,
+        },
+      },
     }
   },
 }, initialPointsState);
@@ -100,6 +126,7 @@ export const pointShape = {
   description: PropTypes.string,
   lat: PropTypes.string,
   lng: PropTypes.string,
+  isSaving: PropTypes.bool,
 };
 
 export default pointsReducer;

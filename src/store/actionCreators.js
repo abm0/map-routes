@@ -25,8 +25,13 @@ export const changePointOrder = (dropData) => ({
   ...dropData,
 });
 
-export const updatePointPosition = (coordinates, id) => ({
+export const updatePointPosition = (id) => ({
   type: actionTypes.POINT_POSITION_CHANGE,
-  coordinates,
+  id,
+});
+
+export const updatePointPositionSuccess = (data, id) => ({
+  type: actionTypes.POINT_POSITION_CHANGE_SUCCESS,
+  data,
   id,
 });
