@@ -1,0 +1,63 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "object-property-newline": [
+      "error",
+      {
+        "allowAllPropertiesOnSameLine": false
+      }
+    ],
+    "object-curly-newline": [
+      "error", 
+      {
+        "ObjectExpression": { "multiline": true, "minProperties": 2 },
+        "ObjectPattern": { "multiline": true, "minProperties": 2 }
+      }
+    ],
+    "object-curly-spacing": 2,
+    "react/jsx-filename-extension": 0,
+    "react/no-array-index-key": "off",
+    "import/no-unresolved": "off",
+    "import/no-named-as-default": 0,
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "always-multiline"
+      }
+    ],
+    "no-undef": 1,
+    "no-shadow": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.styled.js"],
+      "rules": {
+        "import/prefer-default-export": "off"
+      }
+    },
+    {
+      "files": ["src/store/actionCreators.js"],
+      "rules": {
+        "object-curly-newline": [
+          "error", 
+          {
+            "ObjectExpression": { "multiline": true, "minProperties": 1 },
+            "ObjectPattern": { "multiline": true, "minProperties": 1 }
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/**/*.test.js"],
+      "rules": {
+        "no-undef": 0
+      }
+    }
+  ],
+  "parser": "babel-eslint"
+}

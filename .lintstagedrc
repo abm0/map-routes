@@ -1,0 +1,6 @@
+{
+  "*.js": [
+    "node_modules/.bin/eslint --max-warnings=0",
+    "git add"
+  ]
+}
