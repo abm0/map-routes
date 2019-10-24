@@ -15,3 +15,6 @@ To start tests, run:
 ```
 npm test
 ```
+
+App is available at:
+[https://abm0.github.io/map-routes/]https://abm0.github.io/map-routes
