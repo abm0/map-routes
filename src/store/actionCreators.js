@@ -1,12 +1,18 @@
 import * as actionTypes from './actionTypes';
 
-export const fetchAddressList = () => ({ 
+export const fetchAddressList = (value, geocodeFn) => ({ 
   type: actionTypes.ADDRESS_LIST_FETCH, 
+  value,
+  geocodeFn,
 });
 
 export const fetchAddressListSuccess = (data) => ({
   type: actionTypes.ADDRESS_LIST_FETCH_SUCCESS, 
   addressList: data,
+});
+
+export const fetchAddressListFail = () => ({
+  type: actionTypes.ADDRESS_LIST_FETCH_FAIL, 
 });
 
 export const addPoint = (address, id) => ({
@@ -25,13 +31,19 @@ export const changePointOrder = (dropData) => ({
   ...dropData,
 });
 
-export const updatePointPosition = (id) => ({
+export const updatePointPosition = (id, geocodeFn, coordinates) => ({
   type: actionTypes.POINT_POSITION_CHANGE,
   id,
+  geocodeFn,
+  coordinates,
 });
 
 export const updatePointPositionSuccess = (data, id) => ({
   type: actionTypes.POINT_POSITION_CHANGE_SUCCESS,
   data,
   id,
+});
+
+export const updatePointPositionFail = () => ({
+  type: actionTypes.POINT_POSITION_CHANGE_FAIL,
 });

@@ -9,10 +9,7 @@ import {
   withYMaps,
 } from 'react-yandex-maps';
 
-import { 
-  updatePointPosition,
-  updatePointPositionSuccess,
-} from 'store/actionCreators';
+import { updatePointPosition } from 'store/actionCreators';
 
 import {
   isPointAdded,
@@ -32,7 +29,6 @@ class Map extends React.Component {
     ids: PropTypes.arrayOf(PropTypes.number),
     onMapLoad: PropTypes.func.isRequired,
     updatePointPosition: PropTypes.func.isRequired,
-    updatePointPositionSuccess: PropTypes.func.isRequired,
     // eslint-disable-next-line
     ymaps: PropTypes.object,
   }
@@ -73,29 +69,12 @@ class Map extends React.Component {
   onDragEnd = async (e, id) => {
     const {
       updatePointPosition,
-      updatePointPositionSuccess,
       ymaps,
     } = this.props;
     // eslint-disable-next-line
-    const [lng, lat] = e.originalEvent.target.geometry._coordinates;
+    const coordinates = e.originalEvent.target.geometry._coordinates;
 
-    updatePointPosition(id);
-    const result = await ymaps.geocode([lng, lat]);
-
-    const description = result.geoObjects.get(0).properties.get('text');
-    const addressArr = description.split(', ');
-    const geoObjectName = addressArr[1]; 
-
-    const data = {
-      lng,
-      lat,
-      name: geoObjectName,
-      description,
-    };
-
-    console.log(data);
-
-    updatePointPositionSuccess(data, id);
+    updatePointPosition(id, ymaps.geocode, coordinates);
   }
 
   getPolylineGeometry() {
@@ -171,9 +150,6 @@ const mapStateToProps = (state) => ({
   ids: state.points.ids,
 });
 
-const mapActionCreators = { 
-  updatePointPosition,
-  updatePointPositionSuccess,
-};
+const mapActionCreators = { updatePointPosition };
 
 export default connect(mapStateToProps, mapActionCreators)(withYMaps(Map));

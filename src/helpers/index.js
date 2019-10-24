@@ -29,8 +29,22 @@ export const getLastPointCoordinates = (orderedPoints) => {
   ];
 };
 
-export const formatGeocoderResponse = (geoObjects) => {
-  const geoObjectsArr = geoObjects.toArray();
+export const formatReverseGeocodeResponse = (res, coordinates) => {
+  const description = res.geoObjects.get(0).properties.get('text');
+  const addressArr = description.split(', ');
+  const name = addressArr[1];
+  const [lng, lat] = coordinates.map((value => value.toString()));
+
+  return {
+    lng,
+    lat,
+    name,
+    description,
+  };
+};
+
+export const formatGeocodeResponse = (res) => {
+  const geoObjectsArr = res.geoObjects.toArray();
 
   const formattedData = geoObjectsArr.map((geoObject) => {
     const [lng, lat] = 
@@ -42,8 +56,8 @@ export const formatGeocoderResponse = (geoObjects) => {
     const description = geoObject.properties.get('text');
 
     return {
-      lat,
       lng,
+      lat,
       name,
       description,
     };

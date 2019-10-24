@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withYMaps } from 'react-yandex-maps';
 import debounce from 'lodash/debounce';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { formatGeocoderResponse } from 'helpers';
 
 import Spinner from '../Spinner';
 
@@ -17,10 +16,11 @@ class AddressInput extends Component {
   static propTypes = {
     onClickOutside: PropTypes.func.isRequired,
     fetchAddressList: PropTypes.func.isRequired,
-    fetchAddressListSuccess: PropTypes.func.isRequired,
     isAddressFetching: PropTypes.bool.isRequired,
     isAddressListVisible: PropTypes.bool.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    // eslint-disable-next-line
+    ymaps: PropTypes.object.isRequired,
   }
 
   state = { value: '' }
@@ -33,15 +33,10 @@ class AddressInput extends Component {
   fetchAddressList = async value => {
     const {
       fetchAddressList, 
-      fetchAddressListSuccess, 
+      ymaps,
     } = this.props;
-    // eslint-disable-next-line
-    const { geocode } = this.props.ymaps;
 
-    fetchAddressList();
-    const result = await geocode(value);
-    const formattedData = formatGeocoderResponse(result.geoObjects);
-    fetchAddressListSuccess(formattedData);
+    fetchAddressList(value, ymaps.geocode);
   }
 
   handleInputChange = e => {

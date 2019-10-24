@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { addressShape } from 'store/reducers/addresses';
 import {
   fetchAddressList,
-  fetchAddressListSuccess,
   addPoint,
 } from 'store/actionCreators';
 
@@ -24,7 +23,6 @@ export class Address extends Component {
   static propTypes = {
     addresses: PropTypes.arrayOf(PropTypes.shape(addressShape)).isRequired,
     fetchAddressList: PropTypes.func.isRequired,
-    fetchAddressListSuccess: PropTypes.func.isRequired,
     addPoint: PropTypes.func.isRequired,
     isAddressFetching: PropTypes.bool.isRequired,
   }
@@ -69,7 +67,6 @@ export class Address extends Component {
 
     const {
       fetchAddressList,
-      fetchAddressListSuccess,
       addPoint,
       addresses,
       isAddressFetching,
@@ -81,7 +78,6 @@ export class Address extends Component {
       <AddressBlock>
         <AddressInput
           fetchAddressList={fetchAddressList}
-          fetchAddressListSuccess={fetchAddressListSuccess}
           onClickOutside={onClickOutside}
           isAddressFetching={isAddressFetching}
           onSubmit={onAddressInputSubmit}
@@ -104,7 +100,6 @@ const mapStateToProps = (state) => ({
 
 const mapActionCreators = {
   fetchAddressList,
-  fetchAddressListSuccess,
   addPoint,
 };
 
