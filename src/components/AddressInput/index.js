@@ -74,7 +74,10 @@ class AddressInput extends Component {
       handleInputChange,
     } = this;
 
-    const isEnterIconVisible = !isAddressFetching && isAddressListVisible;
+    const isEnterIconVisible =
+      !isAddressFetching
+      && isAddressListVisible
+      && value.length > 0;
 
     return (
       <AddressInputBlock>
@@ -89,7 +92,11 @@ class AddressInput extends Component {
           />
         </OutsideClickHandler>
         {isAddressFetching && <Spinner />}
-        {isEnterIconVisible && <EnterButtonIcon />}
+        {isEnterIconVisible && (
+          <EnterButtonIcon
+            data-e2e-id="enter-key-icon"
+          />
+        )}
       </AddressInputBlock>
     );
   }

@@ -2,14 +2,17 @@ import * as actionTypes from '../actionTypes';
 import * as actionCreators from '../actionCreators';
 
 describe('action creators', () => {
+  const geocodeFn = () => {};
+  
   it('should return proper ADDRESS_LIST_FETCH action', () => {
-    const addressValue = 'Some address';
+    const value = 'Some address';
     const expectedAction = {
       type: actionTypes.ADDRESS_LIST_FETCH,
-      addressValue,
+      geocodeFn,
+      value,
     };
 
-    expect(actionCreators.fetchAddressList(addressValue)).toEqual(expectedAction);
+    expect(actionCreators.fetchAddressList(value, geocodeFn)).toEqual(expectedAction);
   });
   
   it('should return proper POINT_ADD action', () => {
@@ -48,12 +51,14 @@ describe('action creators', () => {
   it('should return proper POINT_POSITION_CHANGE action', () => {
     const coordinates = [0, 0];
     const id = 'Some id';
+    const geocodeFn = () => {};
     const expectedAction = {
       type: actionTypes.POINT_POSITION_CHANGE,
       id,
       coordinates,
+      geocodeFn,
     };
 
-    expect(actionCreators.updatePointPosition(coordinates, id)).toEqual(expectedAction);
+    expect(actionCreators.updatePointPosition(id, coordinates, geocodeFn)).toEqual(expectedAction);
   });
 });

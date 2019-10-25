@@ -1,5 +1,5 @@
-import pointsReducer, { initialPointsState } from '../points';
-import * as actionCreators from '../../actionCreators';
+import pointsReducer, { initialPointsState } from 'store/reducers/points';
+import * as actionCreators from 'store/actionCreators';
 
 describe('points reducer', () => {
   const reducerWithInitialState = (action) => pointsReducer(initialPointsState, action);
@@ -9,6 +9,7 @@ describe('points reducer', () => {
     const newAddress = {
       lat: 'lat',
       lng: 'lng',
+      isSaving: false,
     };
 
     it('should add point to byId object', () => {
@@ -60,16 +61,25 @@ describe('points reducer', () => {
           id: firstId,
           lat: 'lat1',
           lng: 'lng1',
+          name: 'name1',
+          description: 'description1',
+          isSaving: false,
         },
         [secondId]: {
           id: secondId,
           lat: 'lat2',
           lng: 'lng2',
+          name: 'name2',
+          description: 'description2',
+          isSaving: false,
         },
         [thirdId]: {
           id: thirdId,
           lat: 'lat3',
           lng: 'lng3',
+          name: 'name3',
+          description: 'description3',
+          isSaving: false,
         },
       },
       ids: [firstId, secondId, thirdId],
@@ -103,18 +113,23 @@ describe('points reducer', () => {
         };
         
         const action = actionCreators.changePointOrder({
- oldIndex,
-newIndex, 
-});
+          oldIndex,
+          newIndex,  
+        });
         const actualState = pointsReducer(initialState, action);
   
         expect(actualState).toEqual(expectedState);
       });
     });
   
-    describe('on POINT_POSITION_CHANGE action', () => {
+    describe('on POINT_POSITION_CHANGE_SUCCESS action', () => {
       it('should change the coordinates of existing point', () => {
-        const newCoordinates = ['lng4', 'lat4'];
+        const newData = {
+          lng: 'lng4',
+          lat: 'lat4',
+          name: 'name4',
+          description: 'description4',
+        };
         const expectedState = {
           ...initialState,
           byId: {
@@ -123,11 +138,13 @@ newIndex,
               ...initialState.byId[secondId],
               lng: 'lng4',
               lat: 'lat4',
+              name: 'name4',
+              description: 'description4',
             },
           },
         };
 
-        const action = actionCreators.updatePointPosition(newCoordinates, secondId);
+        const action = actionCreators.updatePointPositionSuccess(newData, secondId);
         const actualState = pointsReducer(initialState, action);
 
         expect(actualState).toEqual(expectedState);

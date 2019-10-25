@@ -74,7 +74,7 @@ class Map extends React.Component {
     // eslint-disable-next-line
     const coordinates = e.originalEvent.target.geometry._coordinates;
 
-    updatePointPosition(id, ymaps.geocode, coordinates);
+    updatePointPosition(id, coordinates, ymaps.geocode);
   }
 
   getPolylineGeometry() {

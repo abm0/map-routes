@@ -82,9 +82,9 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "start": "node scripts/start-script.js",
+    "build": "node scripts/build-script.js",
+    "test": "node scripts/test-script.js",
     "precommit": "lint-staged",
     "eslint": "node_modules/.bin/eslint src/",
     "predeploy": "npm run build",
@@ -108,8 +108,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "gh-pages": "^2.1.1",
     "husky": "^3.0.9",
-    "jest-mock-axios": "^3.1.1",
-    "jest-styled-components": "^6.3.3",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0",
@@ -128,7 +126,7 @@
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
+      "<rootDir>/src/**/.(spec|test).{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jsdom",
     "testURL": "http://localhost",

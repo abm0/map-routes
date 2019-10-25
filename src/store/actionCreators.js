@@ -31,7 +31,7 @@ export const changePointOrder = (dropData) => ({
   ...dropData,
 });
 
-export const updatePointPosition = (id, geocodeFn, coordinates) => ({
+export const updatePointPosition = (id, coordinates, geocodeFn) => ({
   type: actionTypes.POINT_POSITION_CHANGE,
   id,
   geocodeFn,
