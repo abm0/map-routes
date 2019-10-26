@@ -79,7 +79,6 @@
     "start": "node scripts/start-script.js",
     "build": "node scripts/build-script.js",
     "test": "node scripts/test-script.js",
-    "precommit": "lint-staged",
     "eslint": "node_modules/.bin/eslint src/*",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -105,6 +104,11 @@
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --config config/lint-staged.config.js"
+    }
   },
   "jest": {
     "collectCoverageFrom": [
