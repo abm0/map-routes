@@ -12,6 +12,8 @@ import {
   EnterButtonIcon,
 } from './AddressInput.styled';
 
+console.log('foo');
+
 class AddressInput extends Component {
   static propTypes = {
     onClickOutside: PropTypes.func.isRequired,
