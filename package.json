@@ -78,9 +78,9 @@
   "scripts": {
     "start": "node scripts/start-script.js",
     "build": "node scripts/build-script.js",
-    "test": "node scripts/test-script.js",
+    "test": "jest src/* --watch",
     "eslint": "node_modules/.bin/eslint src/*",
-    "predeploy": "npm run build",
+    "predeploy": "jest src/* && npm run build",
     "deploy": "gh-pages -d build"
   },
   "browserslist": [
